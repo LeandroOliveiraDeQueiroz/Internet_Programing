@@ -6,8 +6,7 @@ Leandro Oliveira de Queiroz
 
 Fahri
 
-Kagan
-
+Oğuz Kağan Çoban
 
 ## Wanted. The wish of have it is almost criminal 
 
