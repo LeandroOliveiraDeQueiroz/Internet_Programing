@@ -23,9 +23,19 @@ namespace Internet_Programing.Controllers
         }
 
         //GET
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View(await _context.Product.ToListAsync());
+            return View(
+                new ProductsViewModel
+                {
+                    pagination = new ProductPagination
+                    {
+
+
+                    },
+                    products = await _context.Product.Take(ProductPagination.DEFAULT_PAGE_SIZE)
+                }
+            );
         }
 
         public IActionResult Privacy()

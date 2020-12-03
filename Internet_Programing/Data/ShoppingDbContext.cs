@@ -14,7 +14,9 @@ namespace Internet_Programing.Data
         }
 
         public DbSet<Internet_Programing.Models.Products> Product { get; set; }
-
+        //PUT HERE another sets and make migrations process
+        // Add migrations
+        // Update database
 
     }
 }
