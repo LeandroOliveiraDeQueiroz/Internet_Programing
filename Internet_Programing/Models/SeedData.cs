@@ -22,103 +22,103 @@ namespace Internet_Programing.Models
 
             dbContext.Product.AddRange(
                 new Products
+                 {
+                     Name = "Apple iPhone 12",
+                     Description = "",
+                     OS = "iOS 1",
+                     Price = 500,
+                     BatteryAmpere = 2815,
+                     RAM = 4,
+                     Memory = 256,
+                     Processor = "2x 2.65 GHz Firestorm + x 1.8 GHz Icestorm"
+                 },
+                new Products
                 {
-                    Name = "Kayak",
-                    Description = "A boat for one person",
-                    OS = "Watersports",
-                    Price = 275,
-                    BatteryAmpere = 20,
-                    RAM = 3,
-                    Memory = 4,
-                    Processor = "dasda"
+                    Name = "Samsung Galaxy S20 Ultra",
+                    Description = "",
+                    OS = "Android 10 Samsung One UI 2.1",
+                    Price = 500,
+                    BatteryAmpere = 5000,
+                    RAM = 12,
+                    Memory = 128,
+                    Processor = "2x 2.73 GHz Mongoose M5 + 2x 2.4 GHz Cortex-A76 + 4x 1.9 GHz Cortex-A55"
                 },
                 new Products
                 {
-                    Name = "Lifejacket",
-                    Description = "Protective and fashionable",
-                    OS = "Watersports",
-                    Price = 48,
-                    BatteryAmpere = 20,
-                    RAM = 3,
-                    Memory = 4,
-                    Processor = "dasda"
+                    Name = "Samsung Galaxy A51",
+                    Description = "",
+                    OS = "Android 10 Samsung One UI 2.0",
+                    Price = 500,
+                    BatteryAmpere = 4000,
+                    RAM = 4,
+                    Memory = 128,
+                    Processor = "4x 2.3 GHz Cortex-A73 + 4x 1.7 GHz Cortex-A53"
                 },
                 new Products
                 {
-                    Name = "Soccer Ball",
-                    Description = "FIFA-approved size and weight",
-                    OS = "Soccer",
-                    Price = 19,
-                    BatteryAmpere = 20,
-                    RAM = 3,
-                    Memory = 4,
-                    Processor = "dasda"
+                    Name = "Redmi Note 9S",
+                    Description = "",
+                    OS = "Android 10 MIUI 11",
+                    Price = 500,
+                    BatteryAmpere = 5020,
+                    RAM = 4,
+                    Memory = 64,
+                    Processor = "2x 2.3 GHz Kryo 465 Gold + 6x 1.8 GHz Kryo 465 Silver"
                 },
                 new Products
                 {
-                    Name = "Corner Flags",
-                    Description = "Give your playing field a professional touch",
-                    OS = "Soccer",
-                    Price = 34,
-                    BatteryAmpere = 20,
-                    RAM = 3,
-                    Memory = 4,
-                    Processor = "dasda"
+                    Name = "Samsung Galaxy S10",
+                    Description = "",
+                    OS = "Android 10 Samsung One UI 2.1",
+                    Price = 500,
+                    BatteryAmpere = 3400,
+                    RAM = 128,
+                    Memory = 8,
+                    Processor = "4x 1.95 GHz Cortex-A55 + 2x 2.3 GHz Cortex-A75 + 2x 2.7 GHz M4"
                 },
                 new Products
                 {
-                    Name = "Stadium",
-                    Description = "Flat-packed 35,000-seat stadium",
-                    OS = "Soccer",
-                    Price = 79500,
-                    BatteryAmpere = 20,
-                    RAM = 3,
-                    Memory = 4,
-                    Processor = "dasda"
+                    Name = "Samsung Galaxy M31",
+                    Description = "",
+                    OS = "Android 10 Samsung One UI Core 2.1",
+                    Price = 500,
+                    BatteryAmpere = 6000,
+                    RAM = 6,
+                    Memory = 128,
+                    Processor = "4x 2.3 GHz Cortex-A73 + 4x 1.7 GHz Cortex-A53"
                 },
                 new Products
                 {
-                    Name = "Thinking Cap",
-                    Description = "Improve brain efficiency by 75%",
-                    OS = "Chess",
-                    Price = 16,
-                    BatteryAmpere = 20,
-                    RAM = 3,
-                    Memory = 4,
-                    Processor = "dasda"
+                    Name = "Motorola Moto G9 Plus",
+                    Description = "",
+                    OS = "Android 10",
+                    Price = 500,
+                    BatteryAmpere = 5000,
+                    RAM = 4,
+                    Memory = 128,
+                    Processor = "2x 2.2 GHz Kryo 470 Gold + 6x 1.8 GHz Kryo 470 Silver"
                 },
                 new Products
                 {
-                    Name = "Unsteady Chair",
-                    Description = "Secretly give your opponent a disadvantage",
-                    OS = "Chess",
-                    Price = 29,
-                    BatteryAmpere = 20,
-                    RAM = 3,
-                    Memory = 4,
-                    Processor = "dasda"
+                    Name = "Motorola Edge",
+                    Description = "",
+                    OS = "Android 10",
+                    Price = 500,
+                    BatteryAmpere = 4500,
+                    RAM = 6,
+                    Memory = 128,
+                    Processor = "1x 2.4 GHz Kryo 475 Prime + 1x 2.2 GHz Kryo 475 Gold + 6 x1.8 GHz Kryo 475 Silver"
                 },
                 new Products
                 {
-                    Name = "Human Chess Board",
-                    Description = "A fun game for the family",
-                    OS = "Chess",
-                    Price = 75,
-                    BatteryAmpere = 20,
+                    Name = "Apple iPhone XR",
+                    Description = "",
+                    OS = "iOS 13",
+                    Price = 500,
+                    BatteryAmpere = 2942,
                     RAM = 3,
-                    Memory = 4,
-                    Processor = "dasda"
-                },
-                new Products
-                {
-                    Name = "Bling-Bling King",
-                    Description = "Gold-plated, diamond-studded King",
-                    OS = "Chess",
-                    Price = 1200,
-                    BatteryAmpere = 20,
-                    RAM = 3,
-                    Memory = 4,
-                    Processor = "dasda"
+                    Memory = 256,
+                    Processor = "2x 2.5 GHz Vortex + 4x1.6 GHz Tempest"
                 }
             );
 

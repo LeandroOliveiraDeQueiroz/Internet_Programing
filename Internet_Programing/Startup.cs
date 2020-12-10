@@ -31,6 +31,7 @@ namespace Internet_Programing
                     Configuration.GetConnectionString("ShoppingConnection")));
 
             services.AddControllersWithViews();
+            services.AddTransient<ShoppingRepository, EntityFrameworkRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

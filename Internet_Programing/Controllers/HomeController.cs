@@ -14,18 +14,38 @@ namespace Internet_Programing.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ShoppingDbContext _context;
+        //private readonly ShoppingDbContext _context;
+        private ShoppingRepository repository;
 
-        public HomeController(ILogger<HomeController> logger, ShoppingDbContext context)
+        public HomeController(ILogger<HomeController> logger, 
+            //ShoppingDbContext context, 
+            ShoppingRepository repository)
         {
             _logger = logger;
-            _context = context;
+            //_context = context;
+            this.repository = repository;
         }
 
         //GET
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int page = 1)
         {
-            return View(await _context.Product.ToListAsync());
+            var pagination = new PagingInfo
+            {
+                CurrentPage = page,
+                PageSize = PagingInfo.DEFAULT_PAGE_SIZE,
+                TotalItems = repository.Products.Count()
+            };
+
+            return View(
+                new PhonesListViewModel
+                {
+                    Products = repository.Products
+                        .OrderBy(p => p.Price)
+                        .Skip((page - 1) * pagination.PageSize)
+                        .Take(pagination.PageSize),
+                    Pagination = pagination
+                }
+            );
         }
 
         public IActionResult Privacy()

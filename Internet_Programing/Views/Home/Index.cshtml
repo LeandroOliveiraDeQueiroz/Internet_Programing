@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Internet_Programing.Models.Products>
+﻿@model PhonesListViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -50,26 +50,27 @@
 
             <div class="row">
 
-                @foreach (var product in Model){
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">@product.Name</a>
-                            </h4>
-                            <h5>@product.Price &euro;</h5>
-                            <p class="card-text">OS: @product.OS</p>
-                            <p class="card-text">RAM: @product.RAM GB</p>
-                            <p class="card-text">Memory: @product.Memory GB</p>
-                            <p class="card-text">Processor: @product.Processor</p>
-                            <p class="card-text">Battery Ampere: @product.BatteryAmpere mAh</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                @foreach (var product in Model.Products)
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="#">@product.Name</a>
+                                </h4>
+                                <h5>@product.Price &euro;</h5>
+                                <p class="card-text">OS: @product.OS</p>
+                                <p class="card-text">RAM: @product.RAM GB</p>
+                                <p class="card-text">Memory: @product.Memory GB</p>
+                                <p class="card-text">Processor: @product.Processor</p>
+                                <p class="card-text">Battery Ampere: @product.BatteryAmpere mAh</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                            </div>
                         </div>
                     </div>
-                </div>
                 }
 
             </div>
@@ -77,7 +78,29 @@
 
         </div>
         <!-- /.col-lg-9 -->
+        <div style="width: 100%">
+            <nav class="mt-3">
+                <ul class="pagination" style="justify-content: flex-end;">
 
+                    @{
+                        if (Model.Pagination.CurrentPage > 1)
+                        {
+                            int last = @Model.Pagination.CurrentPage - 1;
+                            <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@last">Last</a></li>
+                        }
+                    }
+
+                    @{
+                        if (Model.Pagination.CurrentPage < @Model.Pagination.TotalPages)
+                        {
+                            int next = @Model.Pagination.CurrentPage + 1;
+                            <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@next">Next</a></li>
+                        }
+                    }
+
+                </ul>
+            </nav>
+        </div>
     </div>
     <!-- /.row -->
 </div>
