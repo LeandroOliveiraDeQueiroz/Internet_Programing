@@ -60,7 +60,6 @@
                                     <a href="#">@product.Name</a>
                                 </h4>
                                 <h5>@product.Price &euro;</h5>
-                                <p class="card-text">OS: @product.OS</p>
                                 <p class="card-text">RAM: @product.RAM GB</p>
                                 <p class="card-text">Memory: @product.Memory GB</p>
                                 <p class="card-text">Processor: @product.Processor</p>
@@ -86,7 +85,7 @@
                         if (Model.Pagination.CurrentPage > 1)
                         {
                             int last = @Model.Pagination.CurrentPage - 1;
-                            <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@last">Last</a></li>
+                            <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@last">Preview</a></li>
                         }
                     }
 

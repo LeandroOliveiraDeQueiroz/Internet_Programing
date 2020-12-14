@@ -10,22 +10,22 @@ using Internet_Programing.Models;
 
 namespace Internet_Programing.Controllers
 {
-    public class ProductsController : Controller
+    public class PhonesController : Controller
     {
         private readonly ShoppingDbContext _context;
 
-        public ProductsController(ShoppingDbContext context)
+        public PhonesController(ShoppingDbContext context)
         {
             _context = context;
         }
 
-        // GET: Products
+        // GET: Phones
         public async Task<IActionResult> Index()
         {
             return View(await _context.Product.ToListAsync());
         }
 
-        // GET: Products/Details/5
+        // GET: Phones/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,18 +43,18 @@ namespace Internet_Programing.Controllers
             return View(products);
         }
 
-        // GET: Products/Create
+        // GET: Phones/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Phones/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description")] Products products)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,BatteryAmpere,RAM,Memory,Processor")] Products products)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace Internet_Programing.Controllers
             return View(products);
         }
 
-        // GET: Products/Edit/5
+        // GET: Phones/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,12 +81,12 @@ namespace Internet_Programing.Controllers
             return View(products);
         }
 
-        // POST: Products/Edit/5
+        // POST: Phones/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description")] Products products)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,BatteryAmpere,RAM,Memory,Processor")] Products products)
         {
             if (id != products.Id)
             {
@@ -116,7 +116,7 @@ namespace Internet_Programing.Controllers
             return View(products);
         }
 
-        // GET: Products/Delete/5
+        // GET: Phones/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,7 +134,7 @@ namespace Internet_Programing.Controllers
             return View(products);
         }
 
-        // POST: Products/Delete/5
+        // POST: Phones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -16,8 +16,7 @@ namespace Internet_Programing.Models
         [Range(0, int.MaxValue, ErrorMessage = "Price need to be positive number.")]
         public float Price { set; get; }
         public string Description { set; get; }
-        [Required]
-        public string OS { set; get; }
+        public OS OS { set; get; }
         public int BatteryAmpere { set; get; }
         public int RAM { set; get; }
         public int Memory { set; get; } //GB

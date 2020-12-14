@@ -10,10 +10,39 @@ namespace Internet_Programing.Models
     {
         internal static void Populate(ShoppingDbContext dbContext)
         {
-            PopulateProducts(dbContext);
+            OS Os1 = new OS
+            {
+                Id = 0,
+                Name = "Android",
+                Version = 10
+            };
+            OS Os2 = new OS
+            {
+                Id = 1,
+                Name = "OS",
+                Version = 10
+            };
+
+            //PopulateOS(dbContext, Os1, Os2);
+            PopulateProducts(dbContext, Os1, Os2);
         }
 
-        private static void PopulateProducts(ShoppingDbContext dbContext)
+        private static void PopulateOS(ShoppingDbContext dbContext, OS Os1, OS Os2)
+        {
+            if (dbContext.OS.Any())
+            {
+                return;
+            }
+
+            dbContext.OS.AddRange(
+                Os1, 
+                Os2
+            );
+
+            dbContext.SaveChanges();
+        }
+
+        private static void PopulateProducts(ShoppingDbContext dbContext, OS Os1, OS Os2)
         {
             if (dbContext.Product.Any())
             {
@@ -22,21 +51,21 @@ namespace Internet_Programing.Models
 
             dbContext.Product.AddRange(
                 new Products
-                 {
-                     Name = "Apple iPhone 12",
-                     Description = "",
-                     OS = "iOS 1",
-                     Price = 500,
-                     BatteryAmpere = 2815,
-                     RAM = 4,
-                     Memory = 256,
-                     Processor = "2x 2.65 GHz Firestorm + x 1.8 GHz Icestorm"
-                 },
+                {
+                    Name = "Apple iPhone 12",
+                    Description = "",
+                    //OS = Os2,
+                    Price = 500,
+                    BatteryAmpere = 2815,
+                    RAM = 4,
+                    Memory = 256,
+                    Processor = "2x 2.65 GHz Firestorm + x 1.8 GHz Icestorm"
+                },
                 new Products
                 {
-                    Name = "Samsung Galaxy S20 Ultra",
+                   Name = "Samsung Galaxy S20 Ultra",
                     Description = "",
-                    OS = "Android 10 Samsung One UI 2.1",
+                    //OS = Os1,
                     Price = 500,
                     BatteryAmpere = 5000,
                     RAM = 12,
@@ -47,7 +76,7 @@ namespace Internet_Programing.Models
                 {
                     Name = "Samsung Galaxy A51",
                     Description = "",
-                    OS = "Android 10 Samsung One UI 2.0",
+                    //OS = Os1,
                     Price = 500,
                     BatteryAmpere = 4000,
                     RAM = 4,
@@ -58,7 +87,7 @@ namespace Internet_Programing.Models
                 {
                     Name = "Redmi Note 9S",
                     Description = "",
-                    OS = "Android 10 MIUI 11",
+                    //OS = Os1,
                     Price = 500,
                     BatteryAmpere = 5020,
                     RAM = 4,
@@ -69,7 +98,7 @@ namespace Internet_Programing.Models
                 {
                     Name = "Samsung Galaxy S10",
                     Description = "",
-                    OS = "Android 10 Samsung One UI 2.1",
+                    //OS = Os1,
                     Price = 500,
                     BatteryAmpere = 3400,
                     RAM = 128,
@@ -80,7 +109,7 @@ namespace Internet_Programing.Models
                 {
                     Name = "Samsung Galaxy M31",
                     Description = "",
-                    OS = "Android 10 Samsung One UI Core 2.1",
+                    //OS = Os1,
                     Price = 500,
                     BatteryAmpere = 6000,
                     RAM = 6,
@@ -91,7 +120,7 @@ namespace Internet_Programing.Models
                 {
                     Name = "Motorola Moto G9 Plus",
                     Description = "",
-                    OS = "Android 10",
+                    //OS = Os1,
                     Price = 500,
                     BatteryAmpere = 5000,
                     RAM = 4,
@@ -102,7 +131,7 @@ namespace Internet_Programing.Models
                 {
                     Name = "Motorola Edge",
                     Description = "",
-                    OS = "Android 10",
+                    //OS = Os1,
                     Price = 500,
                     BatteryAmpere = 4500,
                     RAM = 6,
@@ -113,7 +142,7 @@ namespace Internet_Programing.Models
                 {
                     Name = "Apple iPhone XR",
                     Description = "",
-                    OS = "iOS 13",
+                    //OS = Os2,
                     Price = 500,
                     BatteryAmpere = 2942,
                     RAM = 3,

@@ -2,7 +2,7 @@
 
 namespace Internet_Programing.Migrations
 {
-    public partial class Shopping : Migration
+    public partial class wanted : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,12 +31,11 @@ namespace Internet_Programing.Migrations
                 nullable: false,
                 defaultValue: 0);
 
-            migrationBuilder.AddColumn<string>(
-                name: "OS",
+            migrationBuilder.AddColumn<int>(
+                name: "OSId",
                 table: "Product",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+                type: "int",
+                nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "Processor",
@@ -50,10 +49,48 @@ namespace Internet_Programing.Migrations
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
+
+            migrationBuilder.CreateTable(
+                name: "OS",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Version = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OS", x => x.Id);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Product_OSId",
+                table: "Product",
+                column: "OSId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Product_OS_OSId",
+                table: "Product",
+                column: "OSId",
+                principalTable: "OS",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Product_OS_OSId",
+                table: "Product");
+
+            migrationBuilder.DropTable(
+                name: "OS");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Product_OSId",
+                table: "Product");
+
             migrationBuilder.DropColumn(
                 name: "BatteryAmpere",
                 table: "Product");
@@ -63,7 +100,7 @@ namespace Internet_Programing.Migrations
                 table: "Product");
 
             migrationBuilder.DropColumn(
-                name: "OS",
+                name: "OSId",
                 table: "Product");
 
             migrationBuilder.DropColumn(

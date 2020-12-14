@@ -14,6 +14,7 @@ namespace Internet_Programing.Data
         }
 
         public DbSet<Internet_Programing.Models.Products> Product { get; set; }
+        public DbSet<Internet_Programing.Models.OS> OS { get; set; }
 
 
     }
