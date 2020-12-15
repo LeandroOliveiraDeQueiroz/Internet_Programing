@@ -20,9 +20,11 @@ namespace Internet_Programing.Controllers
         }
 
         // GET: Phones
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string message = "")
         {
-            return View(await _context.Product.ToListAsync());
+            var data = await _context.Product.ToListAsync();
+            ViewData["message"] = message;
+            return View(data);
         }
 
         // GET: Phones/Details/5
@@ -60,7 +62,7 @@ namespace Internet_Programing.Controllers
             {
                 _context.Add(products);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { message = "Create Sucess" });
             }
             return View(products);
         }
@@ -142,7 +144,7 @@ namespace Internet_Programing.Controllers
             var products = await _context.Product.FindAsync(id);
             _context.Product.Remove(products);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { message = "Delete Sucess" });
         }
 
         private bool ProductsExists(int id)
