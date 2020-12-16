@@ -8,7 +8,7 @@ namespace Internet_Programing.Models
 {
     public class OS
     {
-        public int Id { set; get; }
+        public int OSId { set; get; }
         [Required]
         public string Name { set; get; }
         public int Version { set; get; }

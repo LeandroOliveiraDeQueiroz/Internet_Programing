@@ -35,7 +35,8 @@ namespace Internet_Programing.Migrations
                 name: "OSId",
                 table: "Product",
                 type: "int",
-                nullable: true);
+                nullable: false,
+                defaultValue: 0);
 
             migrationBuilder.AddColumn<string>(
                 name: "Processor",
@@ -54,14 +55,14 @@ namespace Internet_Programing.Migrations
                 name: "OS",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    OSId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Version = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OS", x => x.Id);
+                    table.PrimaryKey("PK_OS", x => x.OSId);
                 });
 
             migrationBuilder.CreateIndex(
@@ -74,8 +75,8 @@ namespace Internet_Programing.Migrations
                 table: "Product",
                 column: "OSId",
                 principalTable: "OS",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                principalColumn: "OSId",
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

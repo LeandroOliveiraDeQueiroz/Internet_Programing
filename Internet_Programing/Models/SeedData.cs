@@ -1,4 +1,5 @@
 ﻿using Internet_Programing.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,19 +13,17 @@ namespace Internet_Programing.Models
         {
             OS Os1 = new OS
             {
-                Id = 0,
-                Name = "Android",
-                Version = 10
+               Name = "Android",
+               Version = 10
             };
             OS Os2 = new OS
             {
-                Id = 1,
-                Name = "OS",
+                Name = "iOS",
                 Version = 10
             };
 
-            //PopulateOS(dbContext, Os1, Os2);
-            PopulateProducts(dbContext, Os1, Os2);
+            PopulateOS(dbContext, Os1, Os2);
+            PopulateProductsAsync(dbContext, null, null).Wait();
         }
 
         private static void PopulateOS(ShoppingDbContext dbContext, OS Os1, OS Os2)
@@ -42,19 +41,27 @@ namespace Internet_Programing.Models
             dbContext.SaveChanges();
         }
 
-        private static void PopulateProducts(ShoppingDbContext dbContext, OS Os1, OS Os2)
+        private static async Task PopulateProductsAsync(ShoppingDbContext dbContext, OS Os1, OS Os2)
         {
             if (dbContext.Product.Any())
             {
                 return;
             }
 
-            dbContext.Product.AddRange(
+            if (dbContext.OS.Any())
+            {
+                var x = await dbContext.OS.ToListAsync();
+
+                int AndroidId = x[0].OSId;
+                int iOSID = x[1].OSId;
+            
+                dbContext.Product.AddRange(
                 new Products
                 {
                     Name = "Apple iPhone 12",
                     Description = "",
-                    //OS = Os2,
+                    OS = Os2,
+                    OSId = iOSID,
                     Price = 500,
                     BatteryAmpere = 2815,
                     RAM = 4,
@@ -65,7 +72,8 @@ namespace Internet_Programing.Models
                 {
                    Name = "Samsung Galaxy S20 Ultra",
                     Description = "",
-                    //OS = Os1,
+                    OS = Os1,
+                    OSId = AndroidId,
                     Price = 500,
                     BatteryAmpere = 5000,
                     RAM = 12,
@@ -76,7 +84,8 @@ namespace Internet_Programing.Models
                 {
                     Name = "Samsung Galaxy A51",
                     Description = "",
-                    //OS = Os1,
+                    OS = Os1,
+                    OSId = AndroidId,
                     Price = 500,
                     BatteryAmpere = 4000,
                     RAM = 4,
@@ -87,7 +96,8 @@ namespace Internet_Programing.Models
                 {
                     Name = "Redmi Note 9S",
                     Description = "",
-                    //OS = Os1,
+                    OS = Os1,
+                    OSId = AndroidId,
                     Price = 500,
                     BatteryAmpere = 5020,
                     RAM = 4,
@@ -98,7 +108,8 @@ namespace Internet_Programing.Models
                 {
                     Name = "Samsung Galaxy S10",
                     Description = "",
-                    //OS = Os1,
+                    OS = Os1,
+                    OSId = AndroidId,
                     Price = 500,
                     BatteryAmpere = 3400,
                     RAM = 128,
@@ -109,7 +120,8 @@ namespace Internet_Programing.Models
                 {
                     Name = "Samsung Galaxy M31",
                     Description = "",
-                    //OS = Os1,
+                    OS = Os1,
+                    OSId = AndroidId,
                     Price = 500,
                     BatteryAmpere = 6000,
                     RAM = 6,
@@ -120,7 +132,8 @@ namespace Internet_Programing.Models
                 {
                     Name = "Motorola Moto G9 Plus",
                     Description = "",
-                    //OS = Os1,
+                    OS = Os1,
+                    OSId = AndroidId,
                     Price = 500,
                     BatteryAmpere = 5000,
                     RAM = 4,
@@ -131,7 +144,8 @@ namespace Internet_Programing.Models
                 {
                     Name = "Motorola Edge",
                     Description = "",
-                    //OS = Os1,
+                    OS = Os1,
+                    OSId = AndroidId,
                     Price = 500,
                     BatteryAmpere = 4500,
                     RAM = 6,
@@ -142,7 +156,8 @@ namespace Internet_Programing.Models
                 {
                     Name = "Apple iPhone XR",
                     Description = "",
-                    //OS = Os2,
+                    OS = Os2,
+                    OSId = iOSID,
                     Price = 500,
                     BatteryAmpere = 2942,
                     RAM = 3,
@@ -152,6 +167,7 @@ namespace Internet_Programing.Models
             );
 
             dbContext.SaveChanges();
+            }
         }
     }
 }

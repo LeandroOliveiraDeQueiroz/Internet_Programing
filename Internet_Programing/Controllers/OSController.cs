@@ -10,25 +10,24 @@ using Internet_Programing.Models;
 
 namespace Internet_Programing.Controllers
 {
-    public class PhonesController : Controller
+    public class OSController : Controller
     {
         private readonly ShoppingDbContext _context;
 
-        public PhonesController(ShoppingDbContext context)
+        public OSController(ShoppingDbContext context)
         {
             _context = context;
         }
 
-        // GET: Phones
+        // GET: OS
         public async Task<IActionResult> Index(string message = "", string color = "")
         {
             ViewData["message"] = message;
             ViewData["color"] = color;
-            var shoppingDbContext = _context.Product.Include(p => p.OS);
-            return View(await shoppingDbContext.ToListAsync());
+            return View(await _context.OS.ToListAsync());
         }
 
-        // GET: Phones/Details/5
+        // GET: OS/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,42 +35,39 @@ namespace Internet_Programing.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Product
-                .Include(p => p.OS)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (products == null)
+            var oS = await _context.OS
+                .FirstOrDefaultAsync(m => m.OSId == id);
+            if (oS == null)
             {
                 return NotFound();
             }
 
-            return View(products);
+            return View(oS);
         }
 
-        // GET: Phones/Create
+        // GET: OS/Create
         public IActionResult Create()
         {
-            ViewData["OSId"] = new SelectList(_context.OS, "OSId", "Name");
             return View();
         }
 
-        // POST: Phones/Create
+        // POST: OS/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,OSId,BatteryAmpere,RAM,Memory,Processor")] Products products)
+        public async Task<IActionResult> Create([Bind("OSId,Name,Version")] OS oS)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(products);
+                _context.Add(oS);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index), new { message = "Create Sucess", color = "green" });
             }
-            ViewData["OSId"] = new SelectList(_context.OS, "OSId", "Name", products.OSId);
-            return View(products);
+            return View(oS);
         }
 
-        // GET: Phones/Edit/5
+        // GET: OS/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,23 +75,22 @@ namespace Internet_Programing.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Product.FindAsync(id);
-            if (products == null)
+            var oS = await _context.OS.FindAsync(id);
+            if (oS == null)
             {
                 return NotFound();
             }
-            ViewData["OSId"] = new SelectList(_context.OS, "OSId", "Name", products.OSId);
-            return View(products);
+            return View(oS);
         }
 
-        // POST: Phones/Edit/5
+        // POST: OS/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,OSId,BatteryAmpere,RAM,Memory,Processor")] Products products)
+        public async Task<IActionResult> Edit(int id, [Bind("OSId,Name,Version")] OS oS)
         {
-            if (id != products.Id)
+            if (id != oS.OSId)
             {
                 return NotFound();
             }
@@ -104,12 +99,12 @@ namespace Internet_Programing.Controllers
             {
                 try
                 {
-                    _context.Update(products);
+                    _context.Update(oS);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductsExists(products.Id))
+                    if (!OSExists(oS.OSId))
                     {
                         return NotFound();
                     }
@@ -120,11 +115,10 @@ namespace Internet_Programing.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OSId"] = new SelectList(_context.OS, "OSId", "Name", products.OSId);
-            return View(products);
+            return View(oS);
         }
 
-        // GET: Phones/Delete/5
+        // GET: OS/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,31 +126,30 @@ namespace Internet_Programing.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Product
-                .Include(p => p.OS)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (products == null)
+            var oS = await _context.OS
+                .FirstOrDefaultAsync(m => m.OSId == id);
+            if (oS == null)
             {
                 return NotFound();
             }
 
-            return View(products);
+            return View(oS);
         }
 
-        // POST: Phones/Delete/5
+        // POST: OS/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var products = await _context.Product.FindAsync(id);
-            _context.Product.Remove(products);
+            var oS = await _context.OS.FindAsync(id);
+            _context.OS.Remove(oS);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index), new { message = "Delete Sucess", color = "red" });
         }
 
-        private bool ProductsExists(int id)
+        private bool OSExists(int id)
         {
-            return _context.Product.Any(e => e.Id == id);
+            return _context.OS.Any(e => e.OSId == id);
         }
     }
 }
