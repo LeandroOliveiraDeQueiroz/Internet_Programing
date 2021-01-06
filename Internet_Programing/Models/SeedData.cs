@@ -10,12 +10,74 @@ namespace Internet_Programing.Models
 {
     public class SeedData
     {
+        private const string ROLE_ADMIN = "admin";
+        private const string ROLE_CUSTOMER = "customer";
+        private const string ROLE_PRODUCT_MANAGER = "productManager";
+
+        public static async Task SeedRoles(RoleManager<IdentityRole> roleManager)
+        {
+            await EnsureRoleIsCreatedAsync(roleManager, ROLE_ADMIN);
+            await EnsureRoleIsCreatedAsync(roleManager, ROLE_CUSTOMER);
+            await EnsureRoleIsCreatedAsync(roleManager, ROLE_PRODUCT_MANAGER);
+        }
+
+        private static async Task EnsureRoleIsCreatedAsync(RoleManager<IdentityRole> roleManager, string role)
+        {
+            if (await roleManager.RoleExistsAsync(role)) return;
+
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+
+        public static async Task SeedAdminAsync(UserManager<IdentityUser> userManager)
+        {
+            const string adminUser = "admin@wanted.pt";
+            const string adminPass = "Secret123$";
+
+            IdentityUser user = await EnsureUserIsCreatedAsync(userManager, adminUser, adminPass);
+            await EnsureUserIsInRole(userManager, user, ROLE_ADMIN);
+        }
+
+        private static async Task<IdentityUser> EnsureUserIsCreatedAsync(UserManager<IdentityUser> userManager, string username, string password)
+        {
+            IdentityUser user = await userManager.FindByNameAsync(username);
+
+            if(user == null)
+            {
+                user = new IdentityUser { UserName = username, Email = username };
+                IdentityResult result = await userManager.CreateAsync(user, password);
+            }
+
+            return user;
+        }
+
+        private static async Task EnsureUserIsInRole(UserManager<IdentityUser> userManager, IdentityUser user, string role)
+        {
+            if (await userManager.IsInRoleAsync(user, role)) return;
+
+            await userManager.AddToRoleAsync(user, role);
+        }
+
+        public static async Task SeedDevUsersAsync(UserManager<IdentityUser> userManager)
+        {
+            const string customerUser = "customer@wanted.pt";
+            const string customerPassword = "Secret123$";
+
+            const string productManagerUser = "manager@wanted.pt";
+            const string productManagerPassword = "Secret123$";
+
+            IdentityUser user = await EnsureUserIsCreatedAsync(userManager, customerUser, customerPassword);
+            await EnsureUserIsInRole(userManager, user, ROLE_CUSTOMER);
+
+            user = await EnsureUserIsCreatedAsync(userManager, productManagerUser, productManagerPassword);
+            await EnsureUserIsInRole(userManager, user, ROLE_PRODUCT_MANAGER);
+        }
+
         public static void Populate(ShoppingDbContext dbContext)
         {
             OS Os1 = new OS
             {
-               Name = "Android",
-               Version = 10
+                Name = "Android",
+                Version = 10
             };
             OS Os2 = new OS
             {
@@ -25,25 +87,6 @@ namespace Internet_Programing.Models
 
             PopulateOS(dbContext, Os1, Os2);
             PopulateProductsAsync(dbContext, null, null).Wait();
-        }
-
-        public static async Task SeedAdminAsync(UserManager<IdentityUser> userManager)
-        {
-            const string adminUser = "admin@wanted.pt";
-            const string adminPass = "Secret123$";
-
-            await EnsureUserIsCreatedAsync(userManager, adminUser, adminPass);
-        }
-
-        private static async Task EnsureUserIsCreatedAsync(UserManager<IdentityUser> userManager, string username, string password)
-        {
-            IdentityUser user = await userManager.FindByNameAsync(username);
-
-            if(user == null)
-            {
-                user = new IdentityUser { UserName = username, Email = username };
-                IdentityResult result = await userManager.CreateAsync(user, password);
-            }           
         }
 
         private static void PopulateOS(ShoppingDbContext dbContext, OS Os1, OS Os2)

@@ -34,8 +34,21 @@ namespace Internet_Programing
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("ShoppingUsersConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-               .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>( options => {
+                //Sign In
+                options.SignIn.RequireConfirmedAccount = false;
+                
+                //Password
+               options.Password.RequireDigit = true;
+               options.Password.RequiredLength = 8;
+               options.Password.RequireDigit = true;
+               options.Password.RequireLowercase = true;
+               options.Password.RequireUppercase = true;
+
+                //Lockout
+                    
+            }).AddEntityFrameworkStores<ApplicationDbContext>().
+               AddDefaultUI();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -43,7 +56,7 @@ namespace Internet_Programing
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) 
         {
             if (env.IsDevelopment())
             {
@@ -77,7 +90,9 @@ namespace Internet_Programing
                 {
                     var dbContext = serviceScope.ServiceProvider.GetService<ShoppingDbContext>();
                     SeedData.Populate(dbContext);
+                    SeedData.SeedRoles(roleManager).Wait();
                     SeedData.SeedAdminAsync(userManager).Wait();
+                    SeedData.SeedDevUsersAsync(userManager).Wait();
                 }
             }
         }
