@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Internet_Programing.Data;
 using Internet_Programing.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Internet_Programing.Controllers
 {
@@ -20,6 +21,7 @@ namespace Internet_Programing.Controllers
         }
 
         // GET: Phones
+        [Authorize]
         public async Task<IActionResult> Index(string message = "", string color = "")
         {
             ViewData["message"] = message;

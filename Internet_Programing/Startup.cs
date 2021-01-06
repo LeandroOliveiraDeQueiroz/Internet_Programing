@@ -7,6 +7,7 @@ using Internet_Programing.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,12 +31,19 @@ namespace Internet_Programing
                 options.UseSqlServer(
                     Configuration.GetConnectionString("ShoppingConnection")));
 
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("ShoppingUsersConnection")));
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+               .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddControllersWithViews();
+            services.AddRazorPages();
             services.AddTransient<ShoppingRepository, EntityFrameworkRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<IdentityUser> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -52,6 +60,7 @@ namespace Internet_Programing
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -59,6 +68,7 @@ namespace Internet_Programing
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
 
             if (env.IsDevelopment())
@@ -67,6 +77,7 @@ namespace Internet_Programing
                 {
                     var dbContext = serviceScope.ServiceProvider.GetService<ShoppingDbContext>();
                     SeedData.Populate(dbContext);
+                    SeedData.SeedAdminAsync(userManager).Wait();
                 }
             }
         }

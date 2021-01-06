@@ -1,4 +1,5 @@
 ﻿using Internet_Programing.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Internet_Programing.Models
 {
     public class SeedData
     {
-        internal static void Populate(ShoppingDbContext dbContext)
+        public static void Populate(ShoppingDbContext dbContext)
         {
             OS Os1 = new OS
             {
@@ -24,6 +25,25 @@ namespace Internet_Programing.Models
 
             PopulateOS(dbContext, Os1, Os2);
             PopulateProductsAsync(dbContext, null, null).Wait();
+        }
+
+        public static async Task SeedAdminAsync(UserManager<IdentityUser> userManager)
+        {
+            const string adminUser = "admin@wanted.pt";
+            const string adminPass = "Secret123$";
+
+            await EnsureUserIsCreatedAsync(userManager, adminUser, adminPass);
+        }
+
+        private static async Task EnsureUserIsCreatedAsync(UserManager<IdentityUser> userManager, string username, string password)
+        {
+            IdentityUser user = await userManager.FindByNameAsync(username);
+
+            if(user == null)
+            {
+                user = new IdentityUser { UserName = username, Email = username };
+                IdentityResult result = await userManager.CreateAsync(user, password);
+            }           
         }
 
         private static void PopulateOS(ShoppingDbContext dbContext, OS Os1, OS Os2)
