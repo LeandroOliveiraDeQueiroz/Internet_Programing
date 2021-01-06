@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Internet_Programing.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class PhonesController : Controller
     {
         private readonly ShoppingDbContext _context;
@@ -21,7 +22,6 @@ namespace Internet_Programing.Controllers
         }
 
         // GET: Phones
-        [Authorize]
         public async Task<IActionResult> Index(string message = "", string color = "")
         {
             ViewData["message"] = message;
