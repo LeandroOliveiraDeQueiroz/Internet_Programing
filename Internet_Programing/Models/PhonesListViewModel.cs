@@ -9,5 +9,7 @@ namespace Internet_Programing.Models
     {
         public IEnumerable<Products> Products { get; set; }
         public PagingInfo Pagination { get; set; }
+
+        public string SearchProduct { get; set; }
     }
 }

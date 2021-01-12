@@ -27,25 +27,26 @@ namespace Internet_Programing.Controllers
         }
 
         //GET
-        public IActionResult Index(int page = 1)
+        public IActionResult Index( string name = null, int page = 1)
         {
             var pagination = new PagingInfo
             {
                 CurrentPage = page,
                 PageSize = PagingInfo.DEFAULT_PAGE_SIZE,
-                TotalItems = repository.Products.Count()
+                TotalItems = repository.Products.Where(p => name == null || p.Name.Contains(name)).Count()
             };
 
             return View(
                 new PhonesListViewModel
                 {
-                    Products = repository.Products
+                    Products = repository.Products.Where(p => name == null || p.Name.Contains(name))
                         .OrderBy(p => p.Price)
                         .Skip((page - 1) * pagination.PageSize)
                         .Take(pagination.PageSize),
-                    Pagination = pagination
+                    Pagination = pagination,
+                    SearchProduct = name
                 }
-            );
+            ); ;
         }
 
         public IActionResult Privacy()
