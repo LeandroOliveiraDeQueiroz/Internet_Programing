@@ -72,6 +72,8 @@ namespace Internet_Programing.Models
             await EnsureUserIsInRole(userManager, user, ROLE_PRODUCT_MANAGER);
         }
 
+
+
         public static void Populate(ShoppingDbContext dbContext)
         {
             OS Os1 = new OS
@@ -87,6 +89,7 @@ namespace Internet_Programing.Models
 
             PopulateOS(dbContext, Os1, Os2);
             PopulateProductsAsync(dbContext, null, null).Wait();
+            PopulateCustomers(dbContext);
         }
 
         private static void PopulateOS(ShoppingDbContext dbContext, OS Os1, OS Os2)
@@ -231,6 +234,19 @@ namespace Internet_Programing.Models
 
             dbContext.SaveChanges();
             }
+        }
+
+        private static void PopulateCustomers(ShoppingDbContext dbContext)
+        {
+            if (dbContext.Customer.Any()) return;
+
+            dbContext.Customer.Add(new Customer
+            {
+                Name = "Leandro",
+                Email = "customer@wanted.pt"
+            });
+
+            dbContext.SaveChanges();
         }
     }
 }
