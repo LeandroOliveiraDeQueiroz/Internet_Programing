@@ -175,8 +175,22 @@ namespace Internet_Programing.Views
             {
                 return NotFound();
             }
+            //customer.Cart
 
-            //customer.Cart = await _context.
+            var cart = _context.CartProduct.Where(cp => cp.CustomerId == customer.CustomerId);
+
+            if (cart == null)
+            {
+                return NotFound();
+            }
+
+            //customer.Cart = new ICollection<Products>();
+
+            foreach(CartProduct cp in cart)
+            {
+                cp.Products = await _context.Product.FindAsync(cp.ProductsId);
+                customer.Cart.Add(cp);
+            }
 
             return View(customer);
         }

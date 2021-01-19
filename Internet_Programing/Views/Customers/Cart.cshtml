@@ -1,10 +1,10 @@
 ﻿@model Internet_Programing.Models.Customer
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Cart";
 }
 
-<h1>Details</h1>
+<h1>Cart</h1>
 
 <div>
     <h4>Customer</h4>
@@ -28,10 +28,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Cart)
+                Product
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cart)
+                Price
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Total Price
             </th>
             <th></th>
         </tr>
@@ -44,20 +50,21 @@
                 @Html.DisplayFor(modelItem => item.Products.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Products.Price)
+                @Html.DisplayFor(modelItem => item.Products.Price)&euro;
             </td>
             <td>
-                <a asp-action="SuperEdit" asp-route-id="@item.CustomerId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CustomerId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            @{
+                float totalPrice = @item.Quantity * @item.Products.Price;
+                <td>
+                    @totalPrice &euro;
+                </td>
+            }
+            <td>
+                <a asp-action="Cart" method="post" asp-route-id="@item.CustomerId">Delete</a>
             </td>
         </tr>
         }
     </tbody>
 </table>
-
-
-<div>
-    <a asp-action="SuperEdit" asp-route-id="@Model.CustomerId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>

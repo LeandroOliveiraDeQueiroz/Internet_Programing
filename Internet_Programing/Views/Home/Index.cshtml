@@ -78,9 +78,9 @@
                             </div>
                             @if (User.IsInRole("customer"))
                             {
-                                <button>
+                                <div class="page-item">
                                     <a class="page-link" asp-action="AddInCart" asp-route-product="@product.Id" asp-route-page="@Model.Pagination.CurrentPage" asp-route-name="@Model.SearchProduct">Add</a>
-                                </button>
+                                </div>
                             }
                             <div class="card-footer">
                                 <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>

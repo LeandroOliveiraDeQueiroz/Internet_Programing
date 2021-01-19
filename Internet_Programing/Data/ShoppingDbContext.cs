@@ -14,6 +14,11 @@ namespace Internet_Programing.Data
         {
         }
 
+        public DbSet<Internet_Programing.Models.Products> Product { get; set; }
+        public DbSet<Internet_Programing.Models.OS> OS { get; set; }
+        public DbSet<Internet_Programing.Models.Customer> Customer { get; set; }
+        public DbSet<Internet_Programing.Models.CartProduct> CartProduct { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CartProduct>()
@@ -36,9 +41,7 @@ namespace Internet_Programing.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Internet_Programing.Models.Products> Product { get; set; }
-        public DbSet<Internet_Programing.Models.OS> OS { get; set; }
-        public DbSet<Internet_Programing.Models.Customer> Customer { get; set; }
+        
 
 
     }
