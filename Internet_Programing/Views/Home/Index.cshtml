@@ -76,6 +76,12 @@
                                 <p class="card-text">Processor: @product.Processor</p>
                                 <p class="card-text">Battery Ampere: @product.BatteryAmpere mAh</p>
                             </div>
+                            @if (User.IsInRole("customer"))
+                            {
+                                <button>
+                                    <a class="page-link" asp-action="AddInCart" asp-route-product="@product.Id" asp-route-page="@Model.Pagination.CurrentPage" asp-route-name="@Model.SearchProduct">Add</a>
+                                </button>
+                            }
                             <div class="card-footer">
                                 <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
                             </div>

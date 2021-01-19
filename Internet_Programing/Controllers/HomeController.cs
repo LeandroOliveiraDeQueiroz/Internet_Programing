@@ -14,15 +14,15 @@ namespace Internet_Programing.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        //private readonly ShoppingDbContext _context;
+        private readonly ShoppingDbContext _context;
         private ShoppingRepository repository;
 
         public HomeController(ILogger<HomeController> logger, 
-            //ShoppingDbContext context, 
+            ShoppingDbContext context, 
             ShoppingRepository repository)
         {
             _logger = logger;
-            //_context = context;
+            _context = context;
             this.repository = repository;
         }
 
@@ -47,6 +47,31 @@ namespace Internet_Programing.Controllers
                     SearchProduct = name
                 }
             ); ;
+        }
+
+        public async Task<IActionResult> AddInCart(int product, string name = null, int page = 1)
+        {
+            string username = User.Identity.Name;
+
+            var customer = await _context.Customer.SingleOrDefaultAsync(c => c.Email == username);
+
+            CartProduct cartProduct = new CartProduct { ProductsId = product, CustomerId = customer.CustomerId, Quantity = 1 };
+
+            CartProduct databaseCartProduct = await _context.FindAsync<CartProduct>(cartProduct.ProductsId, cartProduct.CustomerId);
+
+            if (databaseCartProduct != null)
+            {
+                databaseCartProduct.Quantity += 1;
+                _context.Update(cartProduct);
+            }
+            else
+            {
+                _context.Add(cartProduct);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index), new { name, page }); ;
         }
 
         public IActionResult Privacy()

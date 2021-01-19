@@ -165,6 +165,22 @@ namespace Internet_Programing.Views
             return View(customer);
         }
 
+        [Authorize(Roles = "customer")]
+        public async Task<IActionResult> Cart()
+        {
+            string username = User.Identity.Name;
+
+            var customer = await _context.Customer.SingleOrDefaultAsync(c => c.Email == username);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            //customer.Cart = await _context.
+
+            return View(customer);
+        }
+
         // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

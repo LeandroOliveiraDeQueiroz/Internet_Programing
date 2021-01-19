@@ -23,6 +23,8 @@ namespace Internet_Programing.Models
         public int Memory { set; get; } //GB
         public string Processor { set; get; }
 
+        public ICollection<CartProduct> Cart { get; set; }
+
         //public string Photo { set; get; }
 
         //public Brand Brand { set; get; }
