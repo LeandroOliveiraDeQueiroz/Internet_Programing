@@ -62,7 +62,7 @@ namespace Internet_Programing.Controllers
             if (databaseCartProduct != null)
             {
                 databaseCartProduct.Quantity += 1;
-                _context.Update(cartProduct);
+                _context.Update(databaseCartProduct);
             }
             else
             {

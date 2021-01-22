@@ -43,28 +43,33 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Cart)
+        @if(Model.Cart != null)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Products.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Products.Price)&euro;
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            @{
-                float totalPrice = @item.Quantity * @item.Products.Price;
+            @foreach (var item in Model.Cart)
+            {
+            <tr>
                 <td>
-                    @totalPrice &euro;
+                    @Html.DisplayFor(modelItem => item.Products.Name)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Products.Price)&euro;
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                @{
+                    float totalPrice = @item.Quantity * @item.Products.Price;
+                    <td>
+                        @totalPrice &euro;
+                    </td>
+                }
+                <td>
+                    <form asp-action="Cart">
+                        <button type="submit" class="btn-link" style="background: transparent; border: unset;" asp-route-productId="@item.ProductsId">Delete</button>
+                    </form>
+                </td>
+            </tr>
             }
-            <td>
-                <a asp-action="Cart" method="post" asp-route-id="@item.CustomerId">Delete</a>
-            </td>
-        </tr>
         }
     </tbody>
 </table>

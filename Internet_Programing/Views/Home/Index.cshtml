@@ -8,13 +8,13 @@
 
     <div class="row">
 
-        <div class="col-lg-3">
+        <div class="col-lg-3" style="margin:30px 0px 21px 0px">
 
-            <h1 class="my-4">Shop Name</h1>
+           <!-- <h1 class="my-4">Shop Name</h1> -->
             <div class="list-group">
-                <a href="#" class="list-group-item">Category 1</a>
-                <a href="#" class="list-group-item">Category 2</a>
-                <a href="#" class="list-group-item">Category 3</a>
+                <a href="#" class="list-group-item">Brand 1</a>
+                <a href="#" class="list-group-item">Brand 2</a>
+                <a href="#" class="list-group-item">Brand 3</a>
             </div>
 
         </div>
@@ -78,8 +78,10 @@
                             </div>
                             @if (User.IsInRole("customer"))
                             {
-                                <div class="page-item">
-                                    <a class="page-link" asp-action="AddInCart" asp-route-product="@product.Id" asp-route-page="@Model.Pagination.CurrentPage" asp-route-name="@Model.SearchProduct">Add</a>
+                                <div style="text-align:end">
+                                    <div class="btn btn-primary" style="width: 60px; margin: 0px 15px 15px 0px;">
+                                        <a style="color:white" asp-action="AddInCart" asp-route-product="@product.Id" asp-route-page="@Model.Pagination.CurrentPage" asp-route-name="@Model.SearchProduct">Add</a>
+                                    </div>
                                 </div>
                             }
                             <div class="card-footer">

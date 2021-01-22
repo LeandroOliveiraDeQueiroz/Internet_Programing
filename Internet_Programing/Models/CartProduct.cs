@@ -13,7 +13,7 @@ namespace Internet_Programing.Models
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
         [Required]
-        [Range(0, int.MaxValue, ErrorMessage = "Price need to be positive number.")]
+        [Range(0, int.MaxValue, ErrorMessage = "Quantity need to be positive number.")]
         public int Quantity { get; set; }
     }
 }
