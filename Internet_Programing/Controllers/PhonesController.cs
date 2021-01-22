@@ -38,15 +38,15 @@ namespace Internet_Programing.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Phone
+            var phone = await _context.Phone
                 .Include(p => p.OS)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (products == null)
+            if (phone == null)
             {
                 return NotFound();
             }
 
-            return View(products);
+            return View(phone);
         }
 
         // GET: Phones/Create
@@ -61,16 +61,16 @@ namespace Internet_Programing.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,OSId,BatteryAmpere,RAM,Memory,Processor")] Phone products)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,OSId,BatteryAmpere,RAM,Memory,Processor")] Phone phone)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(products);
+                _context.Add(phone);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index), new { message = "Create Sucess", color = "green" });
             }
-            ViewData["OSId"] = new SelectList(_context.OS, "OSId", "Name", products.OSId);
-            return View(products);
+            ViewData["OSId"] = new SelectList(_context.OS, "OSId", "Name", phone.OSId);
+            return View(phone);
         }
 
         // GET: Phones/Edit/5
@@ -81,13 +81,13 @@ namespace Internet_Programing.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Phone.FindAsync(id);
-            if (products == null)
+            var phone = await _context.Phone.FindAsync(id);
+            if (phone == null)
             {
                 return NotFound();
             }
-            ViewData["OSId"] = new SelectList(_context.OS, "OSId", "Name", products.OSId);
-            return View(products);
+            ViewData["OSId"] = new SelectList(_context.OS, "OSId", "Name", phone.OSId);
+            return View(phone);
         }
 
         // POST: Phones/Edit/5
@@ -95,9 +95,9 @@ namespace Internet_Programing.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,OSId,BatteryAmpere,RAM,Memory,Processor")] Phone products)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,OSId,BatteryAmpere,RAM,Memory,Processor")] Phone phone)
         {
-            if (id != products.Id)
+            if (id != phone.Id)
             {
                 return NotFound();
             }
@@ -106,12 +106,12 @@ namespace Internet_Programing.Controllers
             {
                 try
                 {
-                    _context.Update(products);
+                    _context.Update(phone);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductsExists(products.Id))
+                    if (!PhoneExists(phone.Id))
                     {
                         return NotFound();
                     }
@@ -122,8 +122,8 @@ namespace Internet_Programing.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OSId"] = new SelectList(_context.OS, "OSId", "Name", products.OSId);
-            return View(products);
+            ViewData["OSId"] = new SelectList(_context.OS, "OSId", "Name", phone.OSId);
+            return View(phone);
         }
 
         // GET: Phones/Delete/5
@@ -134,15 +134,15 @@ namespace Internet_Programing.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Phone
+            var phone = await _context.Phone
                 .Include(p => p.OS)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (products == null)
+            if (phone == null)
             {
                 return NotFound();
             }
 
-            return View(products);
+            return View(phone);
         }
 
         // POST: Phones/Delete/5
@@ -150,13 +150,13 @@ namespace Internet_Programing.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var products = await _context.Phone.FindAsync(id);
-            _context.Phone.Remove(products);
+            var phone = await _context.Phone.FindAsync(id);
+            _context.Phone.Remove(phone);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index), new { message = "Delete Sucess", color = "red" });
         }
 
-        private bool ProductsExists(int id)
+        private bool PhoneExists(int id)
         {
             return _context.Phone.Any(e => e.Id == id);
         }
