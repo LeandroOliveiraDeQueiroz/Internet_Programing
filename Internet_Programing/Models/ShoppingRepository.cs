@@ -7,7 +7,7 @@ namespace Internet_Programing.Models
 {
     public interface ShoppingRepository
     {
-        public IEnumerable<Products> Products { get; }
+        public IEnumerable<Phone> Phones { get; }
 
         public IEnumerable<OS> OS { get; }
     }

@@ -15,7 +15,7 @@ namespace Internet_Programing.Models
             this.dbContext = dbContext;
         }
 
-        public IEnumerable<Products> Products => dbContext.Product;
+        public IEnumerable<Phone> Phones => dbContext.Phone;
 
         public IEnumerable<OS> OS => dbContext.OS;
     }

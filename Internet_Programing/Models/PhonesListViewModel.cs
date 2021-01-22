@@ -7,7 +7,7 @@ namespace Internet_Programing.Models
 {
     public class PhonesListViewModel
     {
-        public IEnumerable<Products> Products { get; set; }
+        public IEnumerable<Phone> Phones { get; set; }
         public PagingInfo Pagination { get; set; }
 
         public string SearchProduct { get; set; }

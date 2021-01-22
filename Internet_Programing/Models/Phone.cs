@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Internet_Programing.Models
 {
-    public class Products
+    public class Phone
     {
         public int Id { set; get; }
         [Required]
@@ -23,9 +23,9 @@ namespace Internet_Programing.Models
         public int Memory { set; get; } //GB
         public string Processor { set; get; }
 
-        public ICollection<CartProduct> Cart { get; set; }
+        public ICollection<CartPhone> Cart { get; set; }
 
-        //public string Photo { set; get; }
+        public byte[] Photo { set; get; }
 
         //public Brand Brand { set; get; }
         //public int BrandId { set; get; }

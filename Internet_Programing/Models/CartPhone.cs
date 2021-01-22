@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Internet_Programing.Models
 {
-    public class CartProduct
+    public class CartPhone
     {
-        public int ProductsId { get; set; }
-        public Products Products { get; set; }
+        public int PhoneId { get; set; }
+        public Phone Phone { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
         [Required]

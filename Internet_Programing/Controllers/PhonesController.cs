@@ -26,7 +26,7 @@ namespace Internet_Programing.Controllers
         {
             ViewData["message"] = message;
             ViewData["color"] = color;
-            var shoppingDbContext = _context.Product.Include(p => p.OS);
+            var shoppingDbContext = _context.Phone.Include(p => p.OS);
             return View(await shoppingDbContext.ToListAsync());
         }
 
@@ -38,7 +38,7 @@ namespace Internet_Programing.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Product
+            var products = await _context.Phone
                 .Include(p => p.OS)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (products == null)
@@ -61,7 +61,7 @@ namespace Internet_Programing.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,OSId,BatteryAmpere,RAM,Memory,Processor")] Products products)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,OSId,BatteryAmpere,RAM,Memory,Processor")] Phone products)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +81,7 @@ namespace Internet_Programing.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Product.FindAsync(id);
+            var products = await _context.Phone.FindAsync(id);
             if (products == null)
             {
                 return NotFound();
@@ -95,7 +95,7 @@ namespace Internet_Programing.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,OSId,BatteryAmpere,RAM,Memory,Processor")] Products products)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,OSId,BatteryAmpere,RAM,Memory,Processor")] Phone products)
         {
             if (id != products.Id)
             {
@@ -134,7 +134,7 @@ namespace Internet_Programing.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Product
+            var products = await _context.Phone
                 .Include(p => p.OS)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (products == null)
@@ -150,15 +150,15 @@ namespace Internet_Programing.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var products = await _context.Product.FindAsync(id);
-            _context.Product.Remove(products);
+            var products = await _context.Phone.FindAsync(id);
+            _context.Phone.Remove(products);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index), new { message = "Delete Sucess", color = "red" });
         }
 
         private bool ProductsExists(int id)
         {
-            return _context.Product.Any(e => e.Id == id);
+            return _context.Phone.Any(e => e.Id == id);
         }
     }
 }

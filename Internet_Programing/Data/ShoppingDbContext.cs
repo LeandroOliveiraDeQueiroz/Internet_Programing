@@ -14,23 +14,23 @@ namespace Internet_Programing.Data
         {
         }
 
-        public DbSet<Internet_Programing.Models.Products> Product { get; set; }
+        public DbSet<Internet_Programing.Models.Phone> Phone { get; set; }
         public DbSet<Internet_Programing.Models.OS> OS { get; set; }
         public DbSet<Internet_Programing.Models.Customer> Customer { get; set; }
-        public DbSet<Internet_Programing.Models.CartProduct> CartProduct { get; set; }
+        public DbSet<Internet_Programing.Models.CartPhone> CartProduct { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CartProduct>()
-                .HasKey(cp => new { cp.ProductsId, cp.CustomerId });
+            modelBuilder.Entity<CartPhone>()
+                .HasKey(cp => new { cp.PhoneId, cp.CustomerId });
 
-            modelBuilder.Entity<CartProduct>()
-                .HasOne(cp => cp.Products)
+            modelBuilder.Entity<CartPhone>()
+                .HasOne(cp => cp.Phone)
                 .WithMany(p => p.Cart)
-                .HasForeignKey(cp => cp.ProductsId)
+                .HasForeignKey(cp => cp.PhoneId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<CartProduct>()
+            modelBuilder.Entity<CartPhone>()
                 .HasOne(cp => cp.Customer)
                 .WithMany(c => c.Cart)
                 .HasForeignKey(cp => cp.CustomerId)

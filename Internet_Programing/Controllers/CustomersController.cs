@@ -186,9 +186,9 @@ namespace Internet_Programing.Views
 
             //customer.Cart = new ICollection<Products>();
 
-            foreach(CartProduct cp in cart)
+            foreach(CartPhone cp in cart)
             {
-                cp.Products = await _context.Product.FindAsync(cp.ProductsId);
+                cp.Phone = await _context.Phone.FindAsync(cp.PhoneId);
                 customer.Cart.Add(cp);
             }
 

@@ -17,6 +17,6 @@ namespace Internet_Programing.Models
         [StringLength(256)]
         [EmailAddress]
         public string Email { get; set; }
-        public ICollection<CartProduct> Cart { get; set; }
+        public ICollection<CartPhone> Cart { get; set; }
     }
 }

@@ -33,13 +33,13 @@ namespace Internet_Programing.Controllers
             {
                 CurrentPage = page,
                 PageSize = PagingInfo.DEFAULT_PAGE_SIZE,
-                TotalItems = repository.Products.Where(p => name == null || p.Name.Contains(name)).Count()
+                TotalItems = repository.Phones.Where(p => name == null || p.Name.Contains(name)).Count()
             };
 
             return View(
                 new PhonesListViewModel
                 {
-                    Products = repository.Products.Where(p => name == null || p.Name.Contains(name))
+                    Phones = repository.Phones.Where(p => name == null || p.Name.Contains(name))
                         .OrderBy(p => p.Price)
                         .Skip((page - 1) * pagination.PageSize)
                         .Take(pagination.PageSize),
@@ -55,9 +55,9 @@ namespace Internet_Programing.Controllers
 
             var customer = await _context.Customer.SingleOrDefaultAsync(c => c.Email == username);
 
-            CartProduct cartProduct = new CartProduct { ProductsId = product, CustomerId = customer.CustomerId, Quantity = 1 };
+            CartPhone cartProduct = new CartPhone { PhoneId = product, CustomerId = customer.CustomerId, Quantity = 1 };
 
-            CartProduct databaseCartProduct = await _context.FindAsync<CartProduct>(cartProduct.ProductsId, cartProduct.CustomerId);
+            CartPhone databaseCartProduct = await _context.FindAsync<CartPhone>(cartProduct.PhoneId, cartProduct.CustomerId);
 
             if (databaseCartProduct != null)
             {

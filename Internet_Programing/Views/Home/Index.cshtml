@@ -61,26 +61,26 @@
 
             <div class="row">
 
-                @foreach (var product in Model.Products)
+                @foreach (var phone in Model.Phones)
                 {
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card h-100">
                             <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
                             <div class="card-body">
                                 <h4 class="card-title">
-                                    <a href="#">@product.Name</a>
+                                    <a href="#">@phone.Name</a>
                                 </h4>
-                                <h5>@product.Price &euro;</h5>
-                                <p class="card-text">RAM: @product.RAM GB</p>
-                                <p class="card-text">Memory: @product.Memory GB</p>
-                                <p class="card-text">Processor: @product.Processor</p>
-                                <p class="card-text">Battery Ampere: @product.BatteryAmpere mAh</p>
+                                <h5>@phone.Price &euro;</h5>
+                                <p class="card-text">RAM: @phone.RAM GB</p>
+                                <p class="card-text">Memory: @phone.Memory GB</p>
+                                <p class="card-text">Processor: @phone.Processor</p>
+                                <p class="card-text">Battery Ampere: @phone.BatteryAmpere mAh</p>
                             </div>
                             @if (User.IsInRole("customer"))
                             {
                                 <div style="text-align:end">
                                     <div class="btn btn-primary" style="width: 60px; margin: 0px 15px 15px 0px;">
-                                        <a style="color:white" asp-action="AddInCart" asp-route-product="@product.Id" asp-route-page="@Model.Pagination.CurrentPage" asp-route-name="@Model.SearchProduct">Add</a>
+                                        <a style="color:white" asp-action="AddInCart" asp-route-product="@phone.Id" asp-route-page="@Model.Pagination.CurrentPage" asp-route-name="@Model.SearchProduct">Add</a>
                                     </div>
                                 </div>
                             }

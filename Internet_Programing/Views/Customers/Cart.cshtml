@@ -49,23 +49,23 @@
             {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Products.Name)
+                    @Html.DisplayFor(modelItem => item.Phone.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Products.Price) &euro;
+                    @Html.DisplayFor(modelItem => item.Phone.Price) &euro;
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Quantity)
                 </td>
                 @{
-                    float totalPrice = @item.Quantity * @item.Products.Price;
+                    float totalPrice = @item.Quantity * @item.Phone.Price;
                     <td>
                         @totalPrice &euro;
                     </td>
                 }
                 <td>
                     <form asp-action="Cart">
-                        <button type="submit" class="btn-link" style="background: transparent; border: unset;" asp-route-productId="@item.ProductsId">Delete</button>
+                        <button type="submit" class="btn-link" style="background: transparent; border: unset;" asp-route-productId="@item.PhoneId">Delete</button>
                     </form>
                 </td>
             </tr>

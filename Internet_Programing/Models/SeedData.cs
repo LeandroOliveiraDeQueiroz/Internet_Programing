@@ -109,7 +109,7 @@ namespace Internet_Programing.Models
 
         private static async Task PopulateProductsAsync(ShoppingDbContext dbContext, OS Os1, OS Os2)
         {
-            if (dbContext.Product.Any())
+            if (dbContext.Phone.Any())
             {
                 return;
             }
@@ -121,8 +121,8 @@ namespace Internet_Programing.Models
                 int AndroidId = x[0].OSId;
                 int iOSID = x[1].OSId;
             
-                dbContext.Product.AddRange(
-                new Products
+                dbContext.Phone.AddRange(
+                new Phone
                 {
                     Name = "Apple iPhone 12",
                     Description = "",
@@ -134,7 +134,7 @@ namespace Internet_Programing.Models
                     Memory = 256,
                     Processor = "2x 2.65 GHz Firestorm + x 1.8 GHz Icestorm"
                 },
-                new Products
+                new Phone
                 {
                    Name = "Samsung Galaxy S20 Ultra",
                     Description = "",
@@ -146,7 +146,7 @@ namespace Internet_Programing.Models
                     Memory = 128,
                     Processor = "2x 2.73 GHz Mongoose M5 + 2x 2.4 GHz Cortex-A76 + 4x 1.9 GHz Cortex-A55"
                 },
-                new Products
+                new Phone
                 {
                     Name = "Samsung Galaxy A51",
                     Description = "",
@@ -158,7 +158,7 @@ namespace Internet_Programing.Models
                     Memory = 128,
                     Processor = "4x 2.3 GHz Cortex-A73 + 4x 1.7 GHz Cortex-A53"
                 },
-                new Products
+                new Phone
                 {
                     Name = "Redmi Note 9S",
                     Description = "",
@@ -170,7 +170,7 @@ namespace Internet_Programing.Models
                     Memory = 64,
                     Processor = "2x 2.3 GHz Kryo 465 Gold + 6x 1.8 GHz Kryo 465 Silver"
                 },
-                new Products
+                new Phone
                 {
                     Name = "Samsung Galaxy S10",
                     Description = "",
@@ -182,7 +182,7 @@ namespace Internet_Programing.Models
                     Memory = 8,
                     Processor = "4x 1.95 GHz Cortex-A55 + 2x 2.3 GHz Cortex-A75 + 2x 2.7 GHz M4"
                 },
-                new Products
+                new Phone
                 {
                     Name = "Samsung Galaxy M31",
                     Description = "",
@@ -194,7 +194,7 @@ namespace Internet_Programing.Models
                     Memory = 128,
                     Processor = "4x 2.3 GHz Cortex-A73 + 4x 1.7 GHz Cortex-A53"
                 },
-                new Products
+                new Phone
                 {
                     Name = "Motorola Moto G9 Plus",
                     Description = "",
@@ -206,7 +206,7 @@ namespace Internet_Programing.Models
                     Memory = 128,
                     Processor = "2x 2.2 GHz Kryo 470 Gold + 6x 1.8 GHz Kryo 470 Silver"
                 },
-                new Products
+                new Phone
                 {
                     Name = "Motorola Edge",
                     Description = "",
@@ -218,7 +218,7 @@ namespace Internet_Programing.Models
                     Memory = 128,
                     Processor = "1x 2.4 GHz Kryo 475 Prime + 1x 2.2 GHz Kryo 475 Gold + 6 x1.8 GHz Kryo 475 Silver"
                 },
-                new Products
+                new Phone
                 {
                     Name = "Apple iPhone XR",
                     Description = "",
