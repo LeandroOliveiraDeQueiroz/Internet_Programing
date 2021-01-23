@@ -95,7 +95,7 @@ namespace Internet_Programing.Views
         }
 
         // GET: Customers/Edit/
-        [Authorize(Roles = "customer")]
+        [Authorize(Roles = "customer, admin, productManager")]
         public async Task<IActionResult> Edit(string message)
         {
             ViewData["message"] = message;
@@ -125,7 +125,7 @@ namespace Internet_Programing.Views
             {
                 return NotFound();
             }
-            return View(customer);
+            return View("Edit", customer);
         }
 
         // POST: Customers/Edit/5

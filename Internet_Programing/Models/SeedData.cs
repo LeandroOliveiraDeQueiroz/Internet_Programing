@@ -1,4 +1,5 @@
 ﻿using Internet_Programing.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -120,7 +121,7 @@ namespace Internet_Programing.Models
 
                 int AndroidId = x[0].OSId;
                 int iOSID = x[1].OSId;
-            
+
                 dbContext.Phone.AddRange(
                 new Phone
                 {
@@ -132,7 +133,8 @@ namespace Internet_Programing.Models
                     BatteryAmpere = 2815,
                     RAM = 4,
                     Memory = 256,
-                    Processor = "2x 2.65 GHz Firestorm + x 1.8 GHz Icestorm"
+                    Processor = "2x 2.65 GHz Firestorm + x 1.8 GHz Icestorm",
+                    Photo  = System.IO.File.ReadAllBytes("./wwwroot/assets/iphone12.jfif"),
                 },
                 new Phone
                 {
@@ -144,7 +146,8 @@ namespace Internet_Programing.Models
                     BatteryAmpere = 5000,
                     RAM = 12,
                     Memory = 128,
-                    Processor = "2x 2.73 GHz Mongoose M5 + 2x 2.4 GHz Cortex-A76 + 4x 1.9 GHz Cortex-A55"
+                    Processor = "2x 2.73 GHz Mongoose M5 + 2x 2.4 GHz Cortex-A76 + 4x 1.9 GHz Cortex-A55",
+                    Photo = System.IO.File.ReadAllBytes("./wwwroot/assets/SamsungGalaxyS20Ultra.jfif"),
                 },
                 new Phone
                 {
@@ -156,7 +159,8 @@ namespace Internet_Programing.Models
                     BatteryAmpere = 4000,
                     RAM = 4,
                     Memory = 128,
-                    Processor = "4x 2.3 GHz Cortex-A73 + 4x 1.7 GHz Cortex-A53"
+                    Processor = "4x 2.3 GHz Cortex-A73 + 4x 1.7 GHz Cortex-A53",
+                    Photo = System.IO.File.ReadAllBytes("./wwwroot/assets/SamsungGalaxyA51.jfif"),
                 },
                 new Phone
                 {
@@ -168,7 +172,8 @@ namespace Internet_Programing.Models
                     BatteryAmpere = 5020,
                     RAM = 4,
                     Memory = 64,
-                    Processor = "2x 2.3 GHz Kryo 465 Gold + 6x 1.8 GHz Kryo 465 Silver"
+                    Processor = "2x 2.3 GHz Kryo 465 Gold + 6x 1.8 GHz Kryo 465 Silver",
+                    Photo = System.IO.File.ReadAllBytes("./wwwroot/assets/RedmiNote9S.jfif"),
                 },
                 new Phone
                 {
@@ -180,7 +185,8 @@ namespace Internet_Programing.Models
                     BatteryAmpere = 3400,
                     RAM = 128,
                     Memory = 8,
-                    Processor = "4x 1.95 GHz Cortex-A55 + 2x 2.3 GHz Cortex-A75 + 2x 2.7 GHz M4"
+                    Processor = "4x 1.95 GHz Cortex-A55 + 2x 2.3 GHz Cortex-A75 + 2x 2.7 GHz M4",
+                    Photo = System.IO.File.ReadAllBytes("./wwwroot/assets/SamsungGalaxyS10.jfif"),
                 },
                 new Phone
                 {
@@ -192,7 +198,8 @@ namespace Internet_Programing.Models
                     BatteryAmpere = 6000,
                     RAM = 6,
                     Memory = 128,
-                    Processor = "4x 2.3 GHz Cortex-A73 + 4x 1.7 GHz Cortex-A53"
+                    Processor = "4x 2.3 GHz Cortex-A73 + 4x 1.7 GHz Cortex-A53",
+                    Photo = System.IO.File.ReadAllBytes("./wwwroot/assets/SamsungGalaxyM31.jfif"),
                 },
                 new Phone
                 {
@@ -204,7 +211,8 @@ namespace Internet_Programing.Models
                     BatteryAmpere = 5000,
                     RAM = 4,
                     Memory = 128,
-                    Processor = "2x 2.2 GHz Kryo 470 Gold + 6x 1.8 GHz Kryo 470 Silver"
+                    Processor = "2x 2.2 GHz Kryo 470 Gold + 6x 1.8 GHz Kryo 470 Silver",
+                    Photo = System.IO.File.ReadAllBytes("./wwwroot/assets/MotorolaMotoG9Plus.jfif"),
                 },
                 new Phone
                 {
@@ -216,7 +224,8 @@ namespace Internet_Programing.Models
                     BatteryAmpere = 4500,
                     RAM = 6,
                     Memory = 128,
-                    Processor = "1x 2.4 GHz Kryo 475 Prime + 1x 2.2 GHz Kryo 475 Gold + 6 x1.8 GHz Kryo 475 Silver"
+                    Processor = "1x 2.4 GHz Kryo 475 Prime + 1x 2.2 GHz Kryo 475 Gold + 6 x1.8 GHz Kryo 475 Silver",
+                    Photo = System.IO.File.ReadAllBytes("./wwwroot/assets/MotorolaEdge.jfif"),
                 },
                 new Phone
                 {
@@ -228,7 +237,8 @@ namespace Internet_Programing.Models
                     BatteryAmpere = 2942,
                     RAM = 3,
                     Memory = 256,
-                    Processor = "2x 2.5 GHz Vortex + 4x1.6 GHz Tempest"
+                    Processor = "2x 2.5 GHz Vortex + 4x1.6 GHz Tempest",
+                    Photo = System.IO.File.ReadAllBytes("./wwwroot/assets/AppleiPhoneXR.jfif"),
                 }
             );
 

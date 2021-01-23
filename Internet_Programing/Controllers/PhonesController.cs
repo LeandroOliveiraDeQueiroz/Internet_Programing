@@ -8,10 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using Internet_Programing.Data;
 using Internet_Programing.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace Internet_Programing.Controllers
 {
-    [Authorize(Roles = "admin")]
+    
     public class PhonesController : Controller
     {
         private readonly ShoppingDbContext _context;
@@ -22,6 +24,7 @@ namespace Internet_Programing.Controllers
         }
 
         // GET: Phones
+        [Authorize(Roles = "admin, productManager")]
         public async Task<IActionResult> Index(string message = "", string color = "")
         {
             ViewData["message"] = message;
@@ -50,6 +53,7 @@ namespace Internet_Programing.Controllers
         }
 
         // GET: Phones/Create
+        [Authorize(Roles = "admin, productManager")]
         public IActionResult Create()
         {
             ViewData["OSId"] = new SelectList(_context.OS, "OSId", "Name");
@@ -61,10 +65,19 @@ namespace Internet_Programing.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,OSId,BatteryAmpere,RAM,Memory,Processor")] Phone phone)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,OSId,BatteryAmpere,RAM,Memory,Processor")] Phone phone, IFormFile photoFile)
         {
             if (ModelState.IsValid)
             {
+                if(photoFile != null && photoFile.Length > 0)
+                {
+                    using (var memFile = new MemoryStream())
+                    {
+                        photoFile.CopyTo(memFile);
+                        phone.Photo = memFile.ToArray();
+                    }
+                }
+
                 _context.Add(phone);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index), new { message = "Create Sucess", color = "green" });
@@ -74,6 +87,7 @@ namespace Internet_Programing.Controllers
         }
 
         // GET: Phones/Edit/5
+        [Authorize(Roles = "admin, productManager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,6 +109,7 @@ namespace Internet_Programing.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, productManager")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,OSId,BatteryAmpere,RAM,Memory,Processor")] Phone phone)
         {
             if (id != phone.Id)
@@ -127,6 +142,7 @@ namespace Internet_Programing.Controllers
         }
 
         // GET: Phones/Delete/5
+        [Authorize(Roles = "admin, productManager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -148,6 +164,7 @@ namespace Internet_Programing.Controllers
         // POST: Phones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, productManager")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var phone = await _context.Phone.FindAsync(id);
