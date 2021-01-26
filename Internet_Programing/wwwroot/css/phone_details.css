@@ -1,0 +1,51 @@
+﻿.details__box {
+    position: relative;
+}
+
+.details__photo__container {
+    text-align: center;
+}
+.details__phone__img {
+    max-width: 100%;
+    padding: 10px 0px;
+}
+
+.details__buy_container {
+}
+
+.details__cart__button {
+    width: 60px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.details__description__container{
+
+}
+
+.details__specification__container{
+
+}
+
+
+
+@media(min-width: 992px) {
+    .details__box {
+        display: flex;
+        margin: 0 50px;
+    }
+    .details__photo__container {
+        width: 70%;
+        height: 350px;
+        text-align: unset;
+    }
+    .details__phone__img {
+        height: 100%;
+    }
+
+    .details__buy_container {
+        width: 30%;
+        margin: 25px;
+    }
+}

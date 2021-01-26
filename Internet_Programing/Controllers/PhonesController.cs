@@ -52,6 +52,31 @@ namespace Internet_Programing.Controllers
             return View(phone);
         }
 
+        public async Task<IActionResult> AddInCart(int product)
+        {
+            string username = User.Identity.Name;
+
+            var customer = await _context.Customer.SingleOrDefaultAsync(c => c.Email == username);
+
+            CartPhone cartProduct = new CartPhone { PhoneId = product, CustomerId = customer.CustomerId, Quantity = 1 };
+
+            CartPhone databaseCartProduct = await _context.FindAsync<CartPhone>(cartProduct.PhoneId, cartProduct.CustomerId);
+
+            if (databaseCartProduct != null)
+            {
+                databaseCartProduct.Quantity += 1;
+                _context.Update(databaseCartProduct);
+            }
+            else
+            {
+                _context.Add(cartProduct);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Details), new { id = product }); ;
+        }
+
         // GET: Phones/Create
         [Authorize(Roles = "admin, productManager")]
         public IActionResult Create()

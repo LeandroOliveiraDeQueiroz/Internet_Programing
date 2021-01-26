@@ -4,11 +4,12 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>@Model.Name<</h1>
 
+<hr />
+<!---
 <div>
-    <h4>Products</h4>
-    <hr />
+
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
@@ -62,14 +63,64 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dd class="col-col-2">
-            @if(Model.Photo != null)
+            @if (Model.Photo != null)
             {
-                <img class="img-responsive full-width" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Photo)"/>
+                <img class="img-responsive full-width" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Photo)" />
             }
         </dd>
     </dl>
+</div> -->
+
+<div class="details__box">
+    <div class="details__photo__container">
+        @if (Model.Photo != null)
+        {
+
+            <img class="details__phone__img" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Photo)" />
+
+        }
+        else
+        {
+            <img class="details__phone__img" src="http://placehold.it/700x400" alt="">
+        }
+    </div>
+    <div class="details__buy_container">
+        <h5><strong>Price:</strong> @Model.Price &euro;</h5>
+
+        <hr/>
+        <p class="card-text"><strong>RAM: </strong>@Model.RAM GB</p>
+        <p class="card-text"><strong>Memory: </strong>@Model.Memory GB</p>
+        @if (Model.Processor != null)
+        {
+            <p class="card-text"><strong>Processor: </strong>@Model.Processor</p>
+        }
+        <p class="card-text"><strong>Battery Ampere: </strong>@Model.BatteryAmpere mAh</p>
+
+
+        @if (User.IsInRole("customer"))
+        {
+            <div class="btn btn-primary details__cart__button">
+                <a style="color:white" asp-action="AddInCart" asp-route-product="@Model.Id">Add</a>
+            </div>
+        }
+    </div>
 </div>
-@if(User.IsInRole("admin")|| User.IsInRole("productManager"))
+
+@if(Model.Description != "")
+{
+    <hr />
+    <div class="details__description__container">
+        <p style="font-weight: bold">Description</p>
+        <p class="card-text">@Model.Description</p>
+    </div>
+}
+
+<div class="details__specification__container">
+
+</div>
+
+
+@if (User.IsInRole("admin") || User.IsInRole("productManager"))
 {
     <div>
         <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
