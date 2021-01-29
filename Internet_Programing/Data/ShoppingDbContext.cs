@@ -19,6 +19,8 @@ namespace Internet_Programing.Data
         public DbSet<Internet_Programing.Models.Customer> Customer { get; set; }
         public DbSet<Internet_Programing.Models.CartPhone> CartProduct { get; set; }
 
+        public DbSet<Internet_Programing.Models.Brand> Brand { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CartPhone>()

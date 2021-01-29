@@ -27,7 +27,7 @@ namespace Internet_Programing.Models
 
         public byte[] Photo { set; get; }
 
-        //public Brand Brand { set; get; }
-        //public int BrandId { set; get; }
+        public Brand Brand { set; get; }
+        public int BrandId { set; get; }
     }
 }

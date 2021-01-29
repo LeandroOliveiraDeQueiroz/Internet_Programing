@@ -87,7 +87,9 @@
     <div class="details__buy_container">
         <h5><strong>Price:</strong> @Model.Price &euro;</h5>
 
-        <hr/>
+        <hr />
+        <p class="card-text"><strong>Brand: </strong>@Model.Brand.Name</p>
+        <p class="card-text"><strong>OS: </strong>@Model.OS.Name</p>
         <p class="card-text"><strong>RAM: </strong>@Model.RAM GB</p>
         <p class="card-text"><strong>Memory: </strong>@Model.Memory GB</p>
         @if (Model.Processor != null)

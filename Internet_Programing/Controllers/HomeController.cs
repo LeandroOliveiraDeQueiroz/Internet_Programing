@@ -33,18 +33,19 @@ namespace Internet_Programing.Controllers
             {
                 CurrentPage = page,
                 PageSize = PagingInfo.DEFAULT_PAGE_SIZE,
-                TotalItems = repository.Phones.Where(p => name == null || p.Name.Contains(name)).Count()
+                TotalItems = _context.Phone.Include(p => p.OS).Where(p => name == null || p.Name.Contains(name)).Count()
             };
-
+            
             return View(
                 new PhonesListViewModel
                 {
-                    Phones = repository.Phones.Where(p => name == null || p.Name.Contains(name))
+                    Phones = _context.Phone.Include(p => p.OS).Include(p => p.Brand).Where(p => name == null || p.Name.Contains(name))
                         .OrderBy(p => p.Price)
                         .Skip((page - 1) * pagination.PageSize)
                         .Take(pagination.PageSize),
                     Pagination = pagination,
-                    SearchProduct = name
+                    SearchProduct = name,
+                    Brands = _context.Brand.ToList()
                 }
             ); ;
         }

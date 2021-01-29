@@ -74,7 +74,6 @@ namespace Internet_Programing.Models
         }
 
 
-
         public static void Populate(ShoppingDbContext dbContext)
         {
             OS Os1 = new OS
@@ -89,6 +88,7 @@ namespace Internet_Programing.Models
             };
 
             PopulateOS(dbContext, Os1, Os2);
+            PopulateBrand(dbContext);
             PopulateProductsAsync(dbContext, null, null).Wait();
             PopulateCustomers(dbContext);
         }
@@ -108,6 +108,35 @@ namespace Internet_Programing.Models
             dbContext.SaveChanges();
         }
 
+        private static void PopulateBrand(ShoppingDbContext dbContext)
+        {
+            if (dbContext.Brand.Any())
+            {
+                return;
+            }
+
+            dbContext.Brand.AddRange(
+                new Brand 
+                {
+                    Name="Apple"
+                },
+                new Brand
+                {
+                    Name = "Samsung"
+                },
+                new Brand
+                {
+                    Name = "Xiaomi"
+                },
+                new Brand
+                {
+                    Name = "Motorola"
+                }
+            );
+
+            dbContext.SaveChanges();
+        }
+
         private static async Task PopulateProductsAsync(ShoppingDbContext dbContext, OS Os1, OS Os2)
         {
             if (dbContext.Phone.Any())
@@ -115,12 +144,19 @@ namespace Internet_Programing.Models
                 return;
             }
 
-            if (dbContext.OS.Any())
+            if (dbContext.OS.Any() && dbContext.Brand.Any())
             {
                 var x = await dbContext.OS.ToListAsync();
 
                 int AndroidId = x[0].OSId;
                 int iOSID = x[1].OSId;
+
+                var brands = await dbContext.Brand.ToListAsync();
+
+                var AppleBrand = brands.Find(b => b.Name == "Apple");
+                var SamsungBrand = brands.Find(b => b.Name == "Samsung");
+                var XiaomiBrand = brands.Find(b => b.Name == "Xiaomi");
+                var MotorolaBrand = brands.Find(b => b.Name == "Motorola");
 
                 dbContext.Phone.AddRange(
                 new Phone
@@ -135,6 +171,8 @@ namespace Internet_Programing.Models
                     Memory = 256,
                     Processor = "2x 2.65 GHz Firestorm + x 1.8 GHz Icestorm",
                     Photo  = System.IO.File.ReadAllBytes("./wwwroot/assets/iphone12.jfif"),
+                    Brand = AppleBrand,
+                    BrandId = AppleBrand.BrandId
                 },
                 new Phone
                 {
@@ -148,6 +186,8 @@ namespace Internet_Programing.Models
                     Memory = 128,
                     Processor = "2x 2.73 GHz Mongoose M5 + 2x 2.4 GHz Cortex-A76 + 4x 1.9 GHz Cortex-A55",
                     Photo = System.IO.File.ReadAllBytes("./wwwroot/assets/SamsungGalaxyS20Ultra.jfif"),
+                    Brand = SamsungBrand,
+                    BrandId = SamsungBrand.BrandId
                 },
                 new Phone
                 {
@@ -161,6 +201,8 @@ namespace Internet_Programing.Models
                     Memory = 128,
                     Processor = "4x 2.3 GHz Cortex-A73 + 4x 1.7 GHz Cortex-A53",
                     Photo = System.IO.File.ReadAllBytes("./wwwroot/assets/SamsungGalaxyA51.jfif"),
+                    Brand = SamsungBrand,
+                    BrandId = SamsungBrand.BrandId
                 },
                 new Phone
                 {
@@ -174,6 +216,8 @@ namespace Internet_Programing.Models
                     Memory = 64,
                     Processor = "2x 2.3 GHz Kryo 465 Gold + 6x 1.8 GHz Kryo 465 Silver",
                     Photo = System.IO.File.ReadAllBytes("./wwwroot/assets/RedmiNote9S.jfif"),
+                    Brand = XiaomiBrand,
+                    BrandId = XiaomiBrand.BrandId
                 },
                 new Phone
                 {
@@ -187,6 +231,8 @@ namespace Internet_Programing.Models
                     Memory = 8,
                     Processor = "4x 1.95 GHz Cortex-A55 + 2x 2.3 GHz Cortex-A75 + 2x 2.7 GHz M4",
                     Photo = System.IO.File.ReadAllBytes("./wwwroot/assets/SamsungGalaxyS10.jfif"),
+                    Brand = SamsungBrand,
+                    BrandId = SamsungBrand.BrandId
                 },
                 new Phone
                 {
@@ -200,6 +246,8 @@ namespace Internet_Programing.Models
                     Memory = 128,
                     Processor = "4x 2.3 GHz Cortex-A73 + 4x 1.7 GHz Cortex-A53",
                     Photo = System.IO.File.ReadAllBytes("./wwwroot/assets/SamsungGalaxyM31.jfif"),
+                    Brand = SamsungBrand,
+                    BrandId = SamsungBrand.BrandId
                 },
                 new Phone
                 {
@@ -213,6 +261,8 @@ namespace Internet_Programing.Models
                     Memory = 128,
                     Processor = "2x 2.2 GHz Kryo 470 Gold + 6x 1.8 GHz Kryo 470 Silver",
                     Photo = System.IO.File.ReadAllBytes("./wwwroot/assets/MotorolaMotoG9Plus.jfif"),
+                    Brand = MotorolaBrand,
+                    BrandId = MotorolaBrand.BrandId
                 },
                 new Phone
                 {
@@ -226,6 +276,8 @@ namespace Internet_Programing.Models
                     Memory = 128,
                     Processor = "1x 2.4 GHz Kryo 475 Prime + 1x 2.2 GHz Kryo 475 Gold + 6 x1.8 GHz Kryo 475 Silver",
                     Photo = System.IO.File.ReadAllBytes("./wwwroot/assets/MotorolaEdge.jfif"),
+                    Brand = MotorolaBrand,
+                    BrandId = MotorolaBrand.BrandId
                 },
                 new Phone
                 {
@@ -239,6 +291,8 @@ namespace Internet_Programing.Models
                     Memory = 256,
                     Processor = "2x 2.5 GHz Vortex + 4x1.6 GHz Tempest",
                     Photo = System.IO.File.ReadAllBytes("./wwwroot/assets/AppleiPhoneXR.jfif"),
+                    Brand = AppleBrand,
+                    BrandId = AppleBrand.BrandId
                 }
             );
 

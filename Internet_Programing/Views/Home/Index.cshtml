@@ -10,12 +10,19 @@
 
         <div class="col-lg-3" style="margin:30px 0px 21px 0px">
 
-           <!-- <h1 class="my-4">Shop Name</h1> -->
-            <div class="list-group">
-                <a href="#" class="list-group-item">Brand 1</a>
-                <a href="#" class="list-group-item">Brand 2</a>
-                <a href="#" class="list-group-item">Brand 3</a>
-            </div>
+            <!-- <h1 class="my-4">Shop Name</h1> -->
+            @if (Model.Brands != null && Model.Brands.Count() > 0)
+            {
+                <div class="list-group">
+
+                    <a href="#" class="list-group-item">All</a>
+                    @foreach (var brand in Model.Brands)
+                    {
+                        <a href="#" class="list-group-item">@brand.Name</a>
+                    }
+                </div>
+            }
+
 
         </div>
 
@@ -106,6 +113,8 @@
                                     <a asp-controller="Phones" asp-action="Details" asp-route-id="@phone.Id">@phone.Name</a>
                                 </h4>
                                 <h5>@phone.Price &euro;</h5>
+                                <p class="card-text"><strong>Brand: </strong>@phone.Brand.Name</p>
+                                <p class="card-text"><strong>OS: </strong>@phone.OS.Name @phone.OS.Version</p>
                                 <p class="card-text"><strong>RAM: </strong>@phone.RAM GB</p>
                                 <p class="card-text"><strong>Memory: </strong>@phone.Memory GB</p>
                                 @if (phone.Processor != null)

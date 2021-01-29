@@ -29,7 +29,7 @@ namespace Internet_Programing.Controllers
         {
             ViewData["message"] = message;
             ViewData["color"] = color;
-            var shoppingDbContext = _context.Phone.Include(p => p.OS);
+            var shoppingDbContext = _context.Phone.Include(p => p.OS).Include(p => p.Brand);
             return View(await shoppingDbContext.ToListAsync());
         }
 
@@ -43,6 +43,7 @@ namespace Internet_Programing.Controllers
 
             var phone = await _context.Phone
                 .Include(p => p.OS)
+                .Include(p => p.Brand)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (phone == null)
             {
@@ -82,6 +83,7 @@ namespace Internet_Programing.Controllers
         public IActionResult Create()
         {
             ViewData["OSId"] = new SelectList(_context.OS, "OSId", "Name");
+            ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "Name");
             return View();
         }
 
@@ -90,7 +92,7 @@ namespace Internet_Programing.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,OSId,BatteryAmpere,RAM,Memory,Processor")] Phone phone, IFormFile photoFile)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,BrandId,OSId,BatteryAmpere,RAM,Memory,Processor")] Phone phone, IFormFile photoFile)
         {
             if (ModelState.IsValid)
             {
@@ -108,6 +110,7 @@ namespace Internet_Programing.Controllers
                 return RedirectToAction(nameof(Index), new { message = "Create Sucess", color = "green" });
             }
             ViewData["OSId"] = new SelectList(_context.OS, "OSId", "Name", phone.OSId);
+            ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "Name", phone.BrandId);
             return View(phone);
         }
 
@@ -126,6 +129,7 @@ namespace Internet_Programing.Controllers
                 return NotFound();
             }
             ViewData["OSId"] = new SelectList(_context.OS, "OSId", "Name", phone.OSId);
+            ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "Name", phone.BrandId);
             return View(phone);
         }
 
@@ -135,7 +139,7 @@ namespace Internet_Programing.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "admin, productManager")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,OSId,BatteryAmpere,RAM,Memory,Processor")] Phone phone)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,BrandId,OSId,BatteryAmpere,RAM,Memory,Processor")] Phone phone)
         {
             if (id != phone.Id)
             {
@@ -163,6 +167,7 @@ namespace Internet_Programing.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["OSId"] = new SelectList(_context.OS, "OSId", "Name", phone.OSId);
+            ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "Name", phone.BrandId);
             return View(phone);
         }
 
@@ -177,6 +182,7 @@ namespace Internet_Programing.Controllers
 
             var phone = await _context.Phone
                 .Include(p => p.OS)
+                .Include(p => p.Brand)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (phone == null)
             {
