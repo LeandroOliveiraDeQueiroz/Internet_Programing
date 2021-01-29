@@ -10,16 +10,16 @@
     <h4>Customer</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
     </dl>
@@ -43,33 +43,43 @@
         </tr>
     </thead>
     <tbody>
-        @if(Model.Cart != null)
+        @if (Model.Cart != null)
         {
+            float TotalPrice = 0;
             @foreach (var item in Model.Cart)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone.Price) &euro;
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                @{
-                    float totalPrice = @item.Quantity * @item.Phone.Price;
+                TotalPrice += @item.Quantity * @item.Phone.Price;
+                <tr>
                     <td>
-                        @totalPrice &euro;
+                        @Html.DisplayFor(modelItem => item.Phone.Name)
                     </td>
-                }
-                <td>
-                    <form asp-action="Cart">
-                        <button type="submit" class="btn-link" style="background: transparent; border: unset;" asp-route-productId="@item.PhoneId">Delete</button>
-                    </form>
-                </td>
-            </tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone.Price) &euro;
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    @{
+                        float totalPrice = @item.Quantity * @item.Phone.Price;
+                        <td>
+                            @totalPrice &euro;
+                        </td>
+                    }
+                    <td>
+                        <form asp-action="Cart">
+                            <button type="submit" class="btn-link" style="background: transparent; border: unset;" asp-route-productId="@item.PhoneId">Delete</button>
+                        </form>
+                    </td>
+                </tr>
             }
+
+            ViewData["TotalPrice"] = TotalPrice;
         }
     </tbody>
 </table>
+<hr/>
+@{
+    <div>
+        <p><strong>Total Price:</strong>  @ViewData["TotalPrice"] &euro;</p>
+    </div>
+}
