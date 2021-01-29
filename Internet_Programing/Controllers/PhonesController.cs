@@ -139,7 +139,7 @@ namespace Internet_Programing.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "admin, productManager")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,BrandId,OSId,BatteryAmpere,RAM,Memory,Processor")] Phone phone)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,BrandId,OSId,BatteryAmpere,RAM,Memory,Processor")] Phone phone, IFormFile photoFile)
         {
             if (id != phone.Id)
             {
@@ -150,7 +150,31 @@ namespace Internet_Programing.Controllers
             {
                 try
                 {
-                    _context.Update(phone);
+                    if (photoFile != null && photoFile.Length > 0)
+                    {
+                        using (var memFile = new MemoryStream())
+                        {
+                            photoFile.CopyTo(memFile);
+                            phone.Photo = memFile.ToArray();
+                        }
+                        _context.Update(phone);
+                    } else
+                    {
+                        //Fix
+                        var oldPhone = await _context.Phone.FindAsync(id);
+
+                        oldPhone.Name = phone.Name;
+                        oldPhone.Price = phone.Price;
+                        oldPhone.Description = phone.Description;
+                        oldPhone.BrandId = phone.BrandId;
+                        oldPhone.OSId = phone.OSId;
+                        oldPhone.BatteryAmpere = phone.BatteryAmpere;
+                        oldPhone.RAM = phone.RAM;
+                        oldPhone.Memory = phone.Memory;
+                        oldPhone.Processor = phone.Processor;
+                        _context.Update(oldPhone);
+                    }
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
