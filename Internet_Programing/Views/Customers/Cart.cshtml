@@ -46,7 +46,7 @@
     <tbody>
         @if (Model.Cart != null)
         {
-            float TotalPrice = 0;
+            var TotalPrice = 0m;
             @foreach (var item in Model.Cart)
             {
                 TotalPrice += @item.Quantity * @item.Phone.Price;
@@ -61,7 +61,7 @@
                         @Html.DisplayFor(modelItem => item.Quantity)
                     </td>
                     @{
-                        float totalPrice = @item.Quantity * @item.Phone.Price;
+                        var totalPrice = @item.Quantity * @item.Phone.Price;
                         <td>
                             @totalPrice &euro;
                         </td>
