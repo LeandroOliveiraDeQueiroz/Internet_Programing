@@ -89,7 +89,7 @@ namespace Internet_Programing.Models
 
             PopulateOS(dbContext, Os1, Os2);
             PopulateBrand(dbContext);
-            PopulateProductsAsync(dbContext, null, null).Wait();
+            PopulatePhonesAsync(dbContext, null, null).Wait();
             PopulateCustomers(dbContext);
         }
 
@@ -137,7 +137,7 @@ namespace Internet_Programing.Models
             dbContext.SaveChanges();
         }
 
-        private static async Task PopulateProductsAsync(ShoppingDbContext dbContext, OS Os1, OS Os2)
+        private static async Task PopulatePhonesAsync(ShoppingDbContext dbContext, OS Os1, OS Os2)
         {
             if (dbContext.Phone.Any())
             {

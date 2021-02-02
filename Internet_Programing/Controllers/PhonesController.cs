@@ -160,7 +160,6 @@ namespace Internet_Programing.Controllers
                         _context.Update(phone);
                     } else
                     {
-                        //Fix
                         var oldPhone = await _context.Phone.FindAsync(id);
 
                         oldPhone.Name = phone.Name;
