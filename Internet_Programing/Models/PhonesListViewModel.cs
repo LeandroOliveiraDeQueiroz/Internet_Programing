@@ -13,5 +13,7 @@ namespace Internet_Programing.Models
         public string SearchProduct { get; set; }
 
         public IEnumerable<Brand> Brands { get; set; }
+
+        public int FilterBrand { get; set; }
     }
 }

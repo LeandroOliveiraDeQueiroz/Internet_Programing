@@ -27,30 +27,39 @@ namespace Internet_Programing.Controllers
         }
 
         //GET
-        public IActionResult Index( string name = null, int page = 1)
+        public IActionResult Index( string name = null, int brand = -1, int page = 1)
         {
             var pagination = new PagingInfo
             {
                 CurrentPage = page,
                 PageSize = PagingInfo.DEFAULT_PAGE_SIZE,
-                TotalItems = _context.Phone.Include(p => p.OS).Where(p => name == null || p.Name.Contains(name)).Count()
+                TotalItems = _context.Phone.Include(p => p.OS).Include(p => p.Brand)
+                    .Where(p => name == null && brand == -1
+                        || brand == -1 && p.Name.Contains(name)
+                        || name == null && p.Brand.BrandId == brand
+                        || p.Name.Contains(name) && p.Brand.BrandId == brand).Count()
             };
             
             return View(
                 new PhonesListViewModel
                 {
-                    Phones = _context.Phone.Include(p => p.OS).Include(p => p.Brand).Where(p => name == null || p.Name.Contains(name))
+                    Phones = _context.Phone.Include(p => p.OS).Include(p => p.Brand)
+                        .Where(p => name == null && brand == -1
+                            || brand == -1 && p.Name.Contains(name)
+                            || name == null && p.Brand.BrandId == brand
+                            || p.Name.Contains(name) && p.Brand.BrandId == brand)
                         .OrderBy(p => p.Price)
                         .Skip((page - 1) * pagination.PageSize)
                         .Take(pagination.PageSize),
                     Pagination = pagination,
                     SearchProduct = name,
-                    Brands = _context.Brand.ToList()
+                    Brands = _context.Brand.ToList(),
+                    FilterBrand = brand
                 }
             ); ;
         }
 
-        public async Task<IActionResult> AddInCart(int product, string name = null, int page = 1)
+        public async Task<IActionResult> AddInCart(int product, string name = null, int brand = -1, int page = 1)
         {
             string username = User.Identity.Name;
 
@@ -72,7 +81,7 @@ namespace Internet_Programing.Controllers
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index), new { name, page }); ;
+            return RedirectToAction(nameof(Index), new { name, brand, page }); ;
         }
 
         public IActionResult Privacy()

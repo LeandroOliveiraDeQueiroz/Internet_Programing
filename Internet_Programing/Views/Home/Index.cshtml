@@ -15,10 +15,10 @@
             {
                 <div class="list-group">
 
-                    <a href="#" class="list-group-item">All</a>
+                    <a asp-action="Index" asp-route-brand="-1" asp-route-name="@Model.SearchProduct" class="list-group-item">All</a>
                     @foreach (var brand in Model.Brands)
                     {
-                        <a href="#" class="list-group-item">@brand.Name</a>
+                        <a  asp-action="Index" asp-route-brand="@brand.BrandId" asp-route-name="@Model.SearchProduct" class="list-group-item">@brand.Name</a>
                     }
                 </div>
             }
@@ -29,6 +29,7 @@
         <div class="col-lg-9">
             <form asp-action="Index" method="get" class="input-group">
                 <input name="name" value="@Model.SearchProduct" placeholder="Search a product...." type="search" class="form-control">
+                <input name="brand" value="@Model.FilterBrand" type="hidden" class="form-control">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -40,11 +41,11 @@
             </form>
 
             <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-                <!---<ol class="carousel-indicators">
+                <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    </ol>-->
+    </ol>
                 @if (Model.Phones != null && Model.Phones.Count() > 0)
                 {
                     <div class="carousel-inner carousel-container" role="listbox">
@@ -127,7 +128,7 @@
                             {
                                 <div style="text-align:end">
                                     <div class="btn btn-primary" style="width: 60px; margin: 0px 15px 15px 0px;">
-                                        <a style="color:white" asp-action="AddInCart" asp-route-product="@phone.Id" asp-route-page="@Model.Pagination.CurrentPage" asp-route-name="@Model.SearchProduct">Add</a>
+                                        <a style="color:white" asp-action="AddInCart" asp-route-product="@phone.Id" asp-route-page="@Model.Pagination.CurrentPage" asp-route-name="@Model.SearchProduct" asp-route-brand="@Model.FilterBrand">Add</a>
                                     </div>
                                 </div>
                             }
@@ -151,7 +152,7 @@
                         if (Model.Pagination.CurrentPage > 1)
                         {
                             int last = @Model.Pagination.CurrentPage - 1;
-                            <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@last">Preview</a></li>
+                            <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@last" asp-route-name="@Model.SearchProduct" asp-route-brand="@Model.FilterBrand">Preview</a></li>
                         }
                     }
 
@@ -159,7 +160,7 @@
                         if (Model.Pagination.CurrentPage < @Model.Pagination.TotalPages)
                         {
                             int next = @Model.Pagination.CurrentPage + 1;
-                            <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@next">Next</a></li>
+                            <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@next" asp-route-name="@Model.SearchProduct" asp-route-brand="@Model.FilterBrand">Next</a></li>
                         }
                     }
 
