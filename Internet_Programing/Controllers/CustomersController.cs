@@ -74,13 +74,18 @@ namespace Internet_Programing.Views
 
                 user = new IdentityUser { UserName = registerCustomer.Email, Email = registerCustomer.Email };
                 IdentityResult result = await _userManager.CreateAsync(user,  registerCustomer.Password);
-                await _userManager.AddToRoleAsync(user, "customer");
 
                 if (!result.Succeeded)
                 {
-                    ModelState.AddModelError("", "Error");
+                    foreach(var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                    
                     return View(registerCustomer);
                 }
+
+                await _userManager.AddToRoleAsync(user, "customer");
 
                 Customer costumer = new Customer
                 {
